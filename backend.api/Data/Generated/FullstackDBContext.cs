@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using backend.api.Models.Generated;
 using Microsoft.EntityFrameworkCore;
-using backend.api.Models.Generated;
 
 namespace backend.api.Data.Generated;
 

@@ -11,7 +11,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-var conn = builder.Configuration.GetSection("ConnectionString");
+IConfigurationSection conn = builder.Configuration.GetSection("ConnectionString");
 
 ConnectionStrings dbProps = new()
 {

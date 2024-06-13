@@ -1,7 +1,4 @@
-﻿using Microsoft.Identity.Client;
-using System.Text.Json.Serialization;
-
-namespace backend.api.Models
+﻿namespace backend.api.Models
 {
     public class ConnectionStrings
     {
@@ -11,11 +8,11 @@ namespace backend.api.Models
 
         public bool IntegratedSecurity { get; set; }
 
-        public int ConnectTimeout {  get; set; }
+        public int ConnectTimeout { get; set; }
 
         public bool Encrypt { get; set; }
 
-        public bool TrustServerCertificate {  get; set; }
+        public bool TrustServerCertificate { get; set; }
 
         public string ApplicationIntent { get; set; } = string.Empty;
 

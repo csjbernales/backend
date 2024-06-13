@@ -20,7 +20,7 @@ namespace backend.api.Controllers
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         public IActionResult GetCustomerDetails(int id)
         {
-            var customerInfo = dbCustomerModel.GetCustomerDetails(id);
+            Customer? customerInfo = dbCustomerModel.GetCustomerDetails(id);
             if (customerInfo is null)
             {
                 return new JsonResult(dbCustomerModel!.ErrorModel);
@@ -41,7 +41,7 @@ namespace backend.api.Controllers
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
         public IActionResult EditCustomer([FromBody] Customer customer)
         {
-            var result = dbCustomerModel.EditCustomer(customer);
+            bool result = dbCustomerModel.EditCustomer(customer);
             if (result)
             {
                 return new JsonResult(result);
@@ -55,7 +55,7 @@ namespace backend.api.Controllers
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
         public IActionResult DeleteCustomer(int id)
         {
-            var result = dbCustomerModel.DeleteCustomer(id);
+            bool result = dbCustomerModel.DeleteCustomer(id);
             if (result)
             {
                 return new JsonResult(result);
