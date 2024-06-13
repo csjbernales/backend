@@ -6,7 +6,7 @@ namespace backend.api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CustomerController(ICustomer dbCustomerModel) : ControllerBase
+    public class CustomerController(ICustomer dbCustomerModel) : ControllerBase, ICustomerController
     {
         [HttpGet]
         [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]
@@ -21,7 +21,7 @@ namespace backend.api.Controllers
         public IActionResult GetCustomerDetails(int id)
         {
             var customerInfo = dbCustomerModel.GetCustomerDetails(id);
-            if(customerInfo is null)
+            if (customerInfo is null)
             {
                 return new JsonResult(dbCustomerModel!.ErrorModel);
             }
@@ -30,18 +30,10 @@ namespace backend.api.Controllers
         }
 
         [HttpPut]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult AddCustomer([FromBody] Customer customer)
         {
-            var result = dbCustomerModel.AddCustomer(customer);
-            if (result)
-            {
-                return new JsonResult(result);
-            }
-
-            return new JsonResult(dbCustomerModel.ErrorModel);
-
+            return Ok();
         }
 
         [HttpPatch]

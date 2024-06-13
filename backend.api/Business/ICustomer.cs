@@ -12,7 +12,7 @@ namespace backend.api.Models.Generated
         string Sex { get; set; }
         ErrorModel ErrorModel { get; set; }
 
-        bool AddCustomer(Customer customer);
+        void AddCustomer(Customer customer);
         bool DeleteCustomer(int id);
         bool EditCustomer(Customer customer);
         IList<Customer> GetAllCustomers();

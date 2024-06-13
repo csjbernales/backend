@@ -1,6 +1,6 @@
 ﻿namespace backend.api.Middleware
 {
-    public class ExceptionHandler(RequestDelegate next)
+    public class ExceptionHandler(RequestDelegate next) : IExceptionHandler
     {
         public async Task Invoke(HttpContext context)
         {
@@ -8,7 +8,7 @@
             {
                 await next(context);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new InvalidOperationException(e.Message);
             }

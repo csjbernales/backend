@@ -1,14 +1,27 @@
-﻿using backend.api.Data;
-using backend.api.Models.Generated;
+﻿using backend.api.Data.Generated;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 namespace backend.api.Models.Generated
 {
-    public partial class Customer(FullstackDBContext fullstackDBContext) : ICustomer
+    public partial class Customer : ICustomer
     {
         [JsonIgnore]
-        public ErrorModel ErrorModel { get; set; } = new ErrorModel();
+        public ErrorModel ErrorModel { get; set; }
+
+        private readonly FullstackDBContext fullstackDBContext;
+
+        public Customer()
+        {
+            ErrorModel = new ErrorModel();
+            this.fullstackDBContext ??= new FullstackDBContext();
+        }
+
+        public Customer(FullstackDBContext fullstackDBContext)
+        {
+            this.fullstackDBContext = fullstackDBContext;
+            ErrorModel = new ErrorModel();
+        }
 
         public IList<Customer> GetAllCustomers()
         {
@@ -17,52 +30,50 @@ namespace backend.api.Models.Generated
 
         public Customer? GetCustomerDetails(int id)
         {
-            var customer = fullstackDBContext.Customers.Where(x => x.Id == id).FirstOrDefault();
-            if(customer is null)
+            IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
+            if (!customer.Any())
             {
                 ErrorModel.ErrorMessage = "Customer not found.";
             }
 
-            return customer;
+            return customer.First();
         }
 
-        public bool AddCustomer(Customer customer)
+        public void AddCustomer(Customer customer)
         {
             fullstackDBContext.Customers.Add(customer);
-            var result = fullstackDBContext.SaveChanges();
-
-            if(result == 0)
-            {
-                ErrorModel.ErrorMessage = $"Failed to add new customer {customer.Firstname} {customer.Lastname}";
-            }
-            return result > 0;
+            fullstackDBContext.SaveChanges();
         }
 
         public bool EditCustomer(Customer customer)
         {
-            fullstackDBContext.Customers.Update(customer);
-            var result = fullstackDBContext.SaveChanges();
-
-            if (result == 0)
+            int result = 0;
+            try
             {
-                ErrorModel.ErrorMessage = $"Failed to update customer {customer.Firstname} {customer.Lastname}";
+                fullstackDBContext.Customers.Update(customer);
+                result = fullstackDBContext.SaveChanges();
             }
+            catch (DbUpdateConcurrencyException exception)
+            {
+                ErrorModel.ErrorMessage = $"{exception.Message}";
+            }
+
             return result > 0;
         }
 
         public bool DeleteCustomer(int id)
         {
             int result = 0;
-            var customer = fullstackDBContext.Customers.Where(x => x.Id == id);
+            IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
 
-            if(customer.Any())
+            if (customer.Any())
             {
                 fullstackDBContext.Customers.Remove(customer.First());
                 result = fullstackDBContext.SaveChanges();
             }
             else
             {
-                ErrorModel.ErrorMessage = $"Failed to delete customer with ID {id}";
+                ErrorModel.ErrorMessage = $"Failed to delete customer with ID '{id}'. ID may not exist.";
             }
 
             return result > 0;
