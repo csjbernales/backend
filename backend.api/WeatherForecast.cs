@@ -1,4 +1,4 @@
-namespace backend
+namespace backend.api
 {
     public class WeatherForecast
     {
