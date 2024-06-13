@@ -1,51 +1,75 @@
-﻿using backend.api.Models.Generated;
+﻿using backend.api.Models;
+using backend.api.Models.Generated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CustomerController(ICustomer customer) : ControllerBase
+    public class CustomerController(ICustomer dbCustomerModel) : ControllerBase
     {
         [HttpGet]
         [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]
         public IActionResult GetAllCustomers()
         {
-            return new JsonResult(customer.GetAllCustomers());
+            return new JsonResult(dbCustomerModel.GetAllCustomers());
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
-        public IActionResult GetCustomerDetails([FromQuery] int id) //todo: edit this to return 404
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        public IActionResult GetCustomerDetails(int id)
         {
-            return new JsonResult(customer.GetCustomerDetails(id));
+            var customerInfo = dbCustomerModel.GetCustomerDetails(id);
+            if(customerInfo is null)
+            {
+                return new JsonResult(dbCustomerModel!.ErrorModel);
+            }
+
+            return new JsonResult(customerInfo);
         }
 
         [HttpPut]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
         public IActionResult AddCustomer([FromBody] Customer customer)
         {
-            var result = customer.AddCustomer(customer);
-            return result ? Ok() : BadRequest();
+            var result = dbCustomerModel.AddCustomer(customer);
+            if (result)
+            {
+                return new JsonResult(result);
+            }
+
+            return new JsonResult(dbCustomerModel.ErrorModel);
+
         }
 
         [HttpPatch]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
         public IActionResult EditCustomer([FromBody] Customer customer)
         {
-            var result = customer.EditCustomer(customer);
-            return result ? Ok() : BadRequest();
+            var result = dbCustomerModel.EditCustomer(customer);
+            if (result)
+            {
+                return new JsonResult(result);
+            }
+
+            return new JsonResult(dbCustomerModel.ErrorModel);
         }
 
         [HttpDelete]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(bool), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
         public IActionResult DeleteCustomer(int id)
         {
-            var result = customer.DeleteCustomer(id);
-            return result ? Ok() : BadRequest();
+            var result = dbCustomerModel.DeleteCustomer(id);
+            if (result)
+            {
+                return new JsonResult(result);
+            }
+
+            return new JsonResult(dbCustomerModel.ErrorModel);
         }
     }
 }

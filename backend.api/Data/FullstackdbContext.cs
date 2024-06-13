@@ -5,13 +5,13 @@ using backend.api.Models.Generated;
 
 namespace backend.api.Data;
 
-public partial class FullstackdbContext : DbContext
+public partial class FullstackDBContext : DbContext
 {
-    public FullstackdbContext()
+    public FullstackDBContext()
     {
     }
 
-    public FullstackdbContext(DbContextOptions<FullstackdbContext> options)
+    public FullstackDBContext(DbContextOptions<FullstackDBContext> options)
         : base(options)
     {
     }
@@ -23,7 +23,7 @@ public partial class FullstackdbContext : DbContext
     public virtual DbSet<Product> Products { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:fullstackdb");
+        => optionsBuilder.UseSqlServer("Data Source=PREDATOHELIOS16;Database=FullstackDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -31,7 +31,6 @@ public partial class FullstackdbContext : DbContext
         {
             entity.HasKey(e => e.Id).HasName("PK_Person");
 
-            entity.Property(e => e.Age).IsFixedLength();
             entity.Property(e => e.Sex).IsFixedLength();
         });
 

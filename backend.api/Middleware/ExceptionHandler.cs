@@ -8,9 +8,9 @@
             {
                 await next(context);
             }
-            catch
+            catch(Exception e)
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException(e.Message);
             }
         }
     }
