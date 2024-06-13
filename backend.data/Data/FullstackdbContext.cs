@@ -1,7 +1,9 @@
-﻿using backend.api.Models.Generated;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using backend.data.Models.Generated;
 
-namespace backend.api.Data;
+namespace backend.data.Data;
 
 public partial class FullstackdbContext : DbContext
 {
@@ -16,10 +18,8 @@ public partial class FullstackdbContext : DbContext
 
     public virtual DbSet<Person> People { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) //todo: fix this; follow guide
-    {
-        optionsBuilder.UseSqlServer("Data Source=PREDATOHELIOS16;Database=fullstackdb;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
-    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:fullstackdb");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
