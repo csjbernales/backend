@@ -26,7 +26,7 @@ ConnectionStrings dbProps = new()
 };
 
 builder.Services.AddScoped<ICustomer, Customer>();
-builder.Services.AddSingleton<ErrorModel>();
+builder.Services.AddScoped<IProduct, Product>();
 
 SqlConnection connection = new(new CustomSqlConnectionStringBuilder(dbProps).ConnectionString());
 
@@ -39,6 +39,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 });
 
 builder.Services.AddHealthChecks();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

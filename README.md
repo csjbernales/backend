@@ -14,4 +14,25 @@ todo:
 auth
 middlewares
 attributes
-ef
+controllers
+
+Database script structure
+Other controllers
+Authentication - do latest
+Authorization
+
+Unit tests 
+
+Add mock values to database
+Conn appsettings
+
+Postman files
+Meaningful comments on methods 
+
+Call on Pocketbase
+
+
+UI
+
+Url props
+Vhange update to find it first and remove try catch

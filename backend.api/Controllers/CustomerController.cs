@@ -1,4 +1,5 @@
-﻿using backend.api.Models;
+﻿using backend.api.Controllers.Interfaces;
+using backend.api.Models;
 using backend.api.Models.Generated;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,7 @@ namespace backend.api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult AddCustomer([FromBody] Customer customer)
         {
+            dbCustomerModel.AddCustomer(customer);
             return Ok();
         }
 

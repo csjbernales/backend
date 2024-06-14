@@ -1,7 +1,7 @@
 ﻿using backend.api.Models.Generated;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.api.Controllers
+namespace backend.api.Controllers.Interfaces
 {
     public interface ICustomerController
     {
