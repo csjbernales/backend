@@ -1,5 +1,4 @@
 ﻿using backend.api.Data.Generated;
-using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 namespace backend.api.Models.Generated
@@ -55,7 +54,7 @@ namespace backend.api.Models.Generated
         public bool EditProduct(Product product)
         {
             int result = 0;
-            var customerInfo = fullstackDBContext.Products.FirstOrDefault(x => x.Id == product.Id);
+            Product? customerInfo = fullstackDBContext.Products.FirstOrDefault(x => x.Id == product.Id);
 
             if (customerInfo != null)
             {

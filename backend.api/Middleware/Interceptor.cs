@@ -2,7 +2,7 @@
 
 namespace backend.api.Middleware
 {
-    public class Interceptor(RequestDelegate next, ILogger<ErrorModel> logger) : IExceptionHandler
+    public class Interceptor(RequestDelegate next, ILogger<ErrorModel> logger) : IExceptionHandler, IInterceptor
     {
         public async Task Invoke(HttpContext context)
         {

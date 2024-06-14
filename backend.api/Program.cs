@@ -5,6 +5,7 @@ using backend.api.Models;
 using backend.api.Models.Generated;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -63,3 +64,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 await app.RunAsync();
+
+[ExcludeFromCodeCoverage]
+partial class Program(string[] args) { }
