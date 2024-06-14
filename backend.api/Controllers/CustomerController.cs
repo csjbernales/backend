@@ -2,10 +2,11 @@
 using backend.api.Models;
 using backend.api.Models.Generated;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace backend.api.Controllers
 {
-    [ApiController]
+    [Produces(MediaTypeNames.Application.Json)]
     [Route("api/[controller]")]
     public class CustomerController(ICustomer dbCustomerModel) : ControllerBase, ICustomerController
     {
@@ -13,7 +14,7 @@ namespace backend.api.Controllers
         [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]
         public IActionResult GetAllCustomers()
         {
-            return new JsonResult(dbCustomerModel.GetAllCustomers());
+            return Ok(dbCustomerModel.GetAllCustomers());
         }
 
         [HttpGet("{id}")]
@@ -24,13 +25,14 @@ namespace backend.api.Controllers
             Customer? customerInfo = dbCustomerModel.GetCustomerDetails(id);
             if (customerInfo is null)
             {
-                return new JsonResult(dbCustomerModel!.ErrorModel);
+                return Ok(dbCustomerModel!.ErrorModel);
             }
 
-            return new JsonResult(customerInfo);
+            return NotFound(customerInfo);
         }
 
         [HttpPut]
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult AddCustomer([FromBody] Customer customer)
         {
@@ -39,6 +41,7 @@ namespace backend.api.Controllers
         }
 
         [HttpPatch]
+        [Consumes("application/json")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
         public IActionResult EditCustomer([FromBody] Customer customer)
@@ -46,10 +49,10 @@ namespace backend.api.Controllers
             bool result = dbCustomerModel.EditCustomer(customer);
             if (result)
             {
-                return new JsonResult(result);
+                return Ok(result);
             }
 
-            return new JsonResult(dbCustomerModel.ErrorModel);
+            return BadRequest(dbCustomerModel.ErrorModel);
         }
 
         [HttpDelete]
@@ -60,10 +63,10 @@ namespace backend.api.Controllers
             bool result = dbCustomerModel.DeleteCustomer(id);
             if (result)
             {
-                return new JsonResult(result);
+                return Ok(result);
             }
 
-            return new JsonResult(dbCustomerModel.ErrorModel);
+            return BadRequest(dbCustomerModel.ErrorModel);
         }
     }
 }

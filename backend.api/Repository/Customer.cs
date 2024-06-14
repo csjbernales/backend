@@ -1,4 +1,5 @@
-﻿using backend.api.Data.Generated;
+﻿using backend.api.Data;
+using backend.api.Data.Generated;
 using System.Text.Json.Serialization;
 
 namespace backend.api.Models.Generated

@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.api.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
     public class ProductController(IProduct dbProductModel) : ControllerBase, IProductController
     {
@@ -31,6 +30,7 @@ namespace backend.api.Controllers
         }
 
         [HttpPut]
+        [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult AddProduct([FromBody] Product Product)
         {
@@ -39,6 +39,7 @@ namespace backend.api.Controllers
         }
 
         [HttpPatch]
+        [Consumes("application/json")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
         public IActionResult EditProduct([FromBody] Product Product)

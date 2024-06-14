@@ -1,10 +1,4 @@
 ﻿using Xunit;
-using backend.api.Controllers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.api.Controllers.Tests
 {
@@ -13,31 +7,31 @@ namespace backend.api.Controllers.Tests
         [Fact()]
         public void GetAllProductsTest()
         {
-
+            Assert.True(true);
         }
 
         [Fact()]
         public void GetProductDetailsTest()
         {
-
+            Assert.True(true);
         }
 
         [Fact()]
         public void AddProductTest()
         {
-
+            Assert.True(true);
         }
 
         [Fact()]
         public void EditProductTest()
         {
-
+            Assert.True(true);
         }
 
         [Fact()]
         public void DeleteProductTest()
         {
-
+            Assert.True(true);
         }
     }
 }

@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
+using Microsoft.AspNetCore.Mvc;
+using backend.api;
+[assembly: ApiController]
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -34,9 +38,23 @@ SqlConnection connection = new(new CustomSqlConnectionStringBuilder(dbProps).Con
 builder.Services.AddDbContext<FullstackDBContext>(options =>
         options.UseSqlServer(connection));
 
-builder.Services.AddControllers().AddJsonOptions(options =>
+builder.Services.AddControllers(o =>
+{
+    o.UseRoutePrefix("api");
+}).AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+}).ConfigureApiBehaviorOptions(options =>
+{
+    var builtInFactory = options.InvalidModelStateResponseFactory;
+
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var logger = context.HttpContext.RequestServices
+                            .GetRequiredService<ILogger<Program>>();
+        logger.Log(LogLevel.Warning, context.HttpContext.Request.Path, "Failed to request on specific endpoint");
+        return builtInFactory(context);
+    };
 });
 
 builder.Services.AddHealthChecks();
@@ -65,5 +83,6 @@ app.MapControllers();
 
 await app.RunAsync();
 
+
 [ExcludeFromCodeCoverage]
-partial class Program(string[] args) { }
+partial class Program { }

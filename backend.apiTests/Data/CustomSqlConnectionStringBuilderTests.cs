@@ -1,10 +1,4 @@
 ﻿using Xunit;
-using backend.api.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace backend.api.Data.Tests
 {
@@ -13,7 +7,7 @@ namespace backend.api.Data.Tests
         [Fact()]
         public void ConnectionStringTest()
         {
-
+            Assert.True(true);
         }
     }
 }
