@@ -1,5 +1,6 @@
 ﻿using backend.api.Data.Generated;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Text.Json.Serialization;
 
 namespace backend.api.Models.Generated
@@ -41,21 +42,30 @@ namespace backend.api.Models.Generated
 
         public void AddCustomer(Customer customer)
         {
-            fullstackDBContext.Customers.Add(customer);
-            fullstackDBContext.SaveChanges();
+            if (customer.Id == 0)
+            {
+                fullstackDBContext.Customers.Add(customer);
+                fullstackDBContext.SaveChanges();
+            }
+            else
+            {
+                ErrorModel.ErrorMessage = $"Payload should not contain 'id' property.";
+            }
         }
 
         public bool EditCustomer(Customer customer)
         {
             int result = 0;
-            try
+            var customerInfo = fullstackDBContext.Customers.FirstOrDefault(x => x.Id == customer.Id);
+
+            if(customerInfo != null)
             {
                 fullstackDBContext.Customers.Update(customer);
                 result = fullstackDBContext.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException exception)
+            else
             {
-                ErrorModel.ErrorMessage = $"{exception.Message}";
+                ErrorModel.ErrorMessage = $"Customer not found.";
             }
 
             return result > 0;

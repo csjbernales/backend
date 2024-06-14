@@ -12,7 +12,6 @@ Update-Database
 
 todo:
 auth
-middlewares
 attributes
 controllers
 
@@ -35,4 +34,3 @@ Call on Pocketbase
 UI
 
 Url props
-Vhange update to find it first and remove try catch

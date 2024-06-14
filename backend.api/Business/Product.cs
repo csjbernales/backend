@@ -41,21 +41,30 @@ namespace backend.api.Models.Generated
 
         public void AddProduct(Product product)
         {
-            fullstackDBContext.Products.Add(product);
-            fullstackDBContext.SaveChanges();
+            if (product.Id == 0)
+            {
+                fullstackDBContext.Products.Add(product);
+                fullstackDBContext.SaveChanges();
+            }
+            else
+            {
+                ErrorModel.ErrorMessage = $"Payload should not contain 'id' property.";
+            }
         }
 
         public bool EditProduct(Product product)
         {
             int result = 0;
-            try
+            var customerInfo = fullstackDBContext.Products.FirstOrDefault(x => x.Id == product.Id);
+
+            if (customerInfo != null)
             {
-                fullstackDBContext.Products.Update(product);
+                fullstackDBContext.Products.Update(customerInfo);
                 result = fullstackDBContext.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException exception)
+            else
             {
-                ErrorModel.ErrorMessage = $"{exception.Message}";
+                ErrorModel.ErrorMessage = $"Customer not found.";
             }
 
             return result > 0;
