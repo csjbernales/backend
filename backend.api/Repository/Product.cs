@@ -36,7 +36,7 @@ namespace backend.api.Models.Generated
                 ErrorModel.ErrorMessage = "Product not found.";
             }
 
-            return product.First();
+            return product.FirstOrDefault();
         }
 
         public void AddProduct(Product product)
@@ -77,7 +77,7 @@ namespace backend.api.Models.Generated
 
             if (product.Any())
             {
-                fullstackDBContext.Products.Remove(product.First());
+                fullstackDBContext.Products.Remove(product.FirstOrDefault());
                 result = fullstackDBContext.SaveChanges();
             }
             else

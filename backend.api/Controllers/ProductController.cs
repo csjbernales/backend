@@ -8,6 +8,7 @@ using System.Net.Mime;
 namespace backend.api.Controllers
 {
     [Produces(MediaTypeNames.Application.Json)]
+    [Route("api/[controller]")]
     public class ProductController(IProduct dbProductModel) : ControllerBase, IProductController
     {
         [HttpGet]

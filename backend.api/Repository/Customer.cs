@@ -37,7 +37,7 @@ namespace backend.api.Models.Generated
                 ErrorModel.ErrorMessage = "Customer not found.";
             }
 
-            return customer.First();
+            return customer.FirstOrDefault();
         }
 
         public void AddCustomer(Customer customer)
@@ -78,7 +78,7 @@ namespace backend.api.Models.Generated
 
             if (customer.Any())
             {
-                fullstackDBContext.Customers.Remove(customer.First());
+                fullstackDBContext.Customers.Remove(customer.FirstOrDefault());
                 result = fullstackDBContext.SaveChanges();
             }
             else

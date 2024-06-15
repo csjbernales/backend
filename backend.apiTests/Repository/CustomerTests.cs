@@ -1,22 +1,18 @@
 ﻿using backend.api.Data.Generated;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Xunit;
 
 namespace backend.api.Models.Generated.Tests
 {
     public class CustomerTests
     {
-        private readonly DbContextOptions<FullstackDBContext> dbContextOptions;
-
-        public CustomerTests()
-        {
-            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
-
-        }
+        private DbContextOptions<FullstackDBContext> dbContextOptions = new();
 
         [Fact()]
-        public void GetAllCustomersTest()
+        public void A_GetAllCustomersTest()
         {
             //Arrange
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             fullstackDBContext.Customers.Add(
                 new Customer
@@ -29,7 +25,6 @@ namespace backend.api.Models.Generated.Tests
                     Sex = "F",
                     IsEmployed = true
                 });
-
             fullstackDBContext.SaveChanges();
 
             Customer sut = new(fullstackDBContext);
@@ -42,27 +37,122 @@ namespace backend.api.Models.Generated.Tests
         }
 
         [Fact()]
-        public void GetCustomerDetailsTest()
+        public void B_GetCustomerDetailsTest()
         {
-            Assert.True(true);
+            //Arrange
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            using FullstackDBContext fullstackDBContext = new(dbContextOptions);
+            var cust = new Customer
+            {
+                Id = 2,
+                Firstname = "Verna",
+                Middlename = "Dorias",
+                Lastname = "Bernales",
+                Age = 25,
+                Sex = "F",
+                IsEmployed = true
+            };
+            fullstackDBContext.Add(cust);
+            fullstackDBContext.SaveChanges();
+
+            Customer sut = new(fullstackDBContext);
+
+            // Act
+            Customer? allCustomers = sut.GetCustomerDetails(2);
+
+            // Assert
+            allCustomers.Should().BeSameAs(cust);
         }
 
         [Fact()]
-        public void AddCustomerTest()
+        public void C_AddCustomerTest()
         {
-            Assert.True(true);
+            //Arrange
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            using FullstackDBContext fullstackDBContext = new(dbContextOptions);
+            var cust = new Customer
+            {
+                Id = 3,
+                Firstname = "Verna",
+                Middlename = "Dorias",
+                Lastname = "Bernales",
+                Age = 25,
+                Sex = "F",
+                IsEmployed = true
+            };
+            fullstackDBContext.Customers.Add(cust);
+            fullstackDBContext.SaveChanges();
+
+            Customer sut = new(fullstackDBContext);
+
+            // Act
+            sut.AddCustomer(cust);
+            Customer? allCustomers = sut.GetCustomerDetails(3);
+
+            // Assert
+            allCustomers.Should().BeSameAs(cust);
         }
 
         [Fact()]
-        public void EditCustomerTest()
+        public void D_EditCustomerTest()
         {
-            Assert.True(true);
+            //Arrange
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            using FullstackDBContext fullstackDBContext = new(dbContextOptions);
+            var cust = new Customer
+            {
+                Id = 4,
+                Firstname = "Verna",
+                Middlename = "Dorias",
+                Lastname = "Bernales",
+                Age = 25,
+                Sex = "F",
+                IsEmployed = true
+            };
+            fullstackDBContext.Add(cust);
+            fullstackDBContext.SaveChanges();
+
+            var updatedCust = fullstackDBContext.Customers.Where(x => x.Id == cust.Id).FirstOrDefault();
+
+            updatedCust.Age = 26;
+
+            Customer sut = new(fullstackDBContext);
+
+            // Act
+            var allCustomers = sut.EditCustomer(updatedCust);
+
+            // Assert
+            allCustomers.Should().BeTrue();
         }
 
         [Fact()]
-        public void DeleteCustomerTest()
+        public void E_DeleteCustomerTest()
         {
-            Assert.True(true);
+            //Arrange
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            using FullstackDBContext fullstackDBContext = new(dbContextOptions);
+            var cust = new Customer
+            {
+                Id = 5,
+                Firstname = "Verna",
+                Middlename = "Dorias",
+                Lastname = "Bernales",
+                Age = 25,
+                Sex = "F",
+                IsEmployed = true
+            };
+            fullstackDBContext.Customers.Add(cust);
+            fullstackDBContext.SaveChanges();
+
+            Customer sut = new(fullstackDBContext);
+
+            // Act
+            var del = sut.DeleteCustomer(5);
+
+            var allCustomers = sut.GetCustomerDetails(5);
+            // Assert
+            allCustomers.Should().Be(null);
+            del.Should().BeTrue();
         }
     }
 }

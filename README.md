@@ -34,3 +34,8 @@ Call on Pocketbase
 UI
 
 Url props
+
+move partials from business to data
+create a repository dependent from data layer
+
+add postman env, edit existing collection

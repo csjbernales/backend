@@ -39,23 +39,9 @@ SqlConnection connection = new(new CustomSqlConnectionStringBuilder(dbProps).Con
 builder.Services.AddDbContext<FullstackDBContext>(options =>
         options.UseSqlServer(connection));
 
-builder.Services.AddControllers(o =>
-{
-    o.UseRoutePrefix("api");
-}).AddJsonOptions(options =>
+builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
-}).ConfigureApiBehaviorOptions(options =>
-{
-    var builtInFactory = options.InvalidModelStateResponseFactory;
-
-    options.InvalidModelStateResponseFactory = context =>
-    {
-        var logger = context.HttpContext.RequestServices
-                            .GetRequiredService<ILogger<Program>>();
-        logger.Log(LogLevel.Warning, context.HttpContext.Request.Path, "Failed to request on specific endpoint");
-        return builtInFactory(context);
-    };
 });
 
 builder.Services.AddHealthChecks();
