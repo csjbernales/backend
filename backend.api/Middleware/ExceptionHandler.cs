@@ -1,4 +1,5 @@
-﻿using backend.api.Models;
+﻿using backend.api.Middleware.Interfaces;
+using backend.api.Models;
 
 namespace backend.api.Middleware
 {

@@ -1,20 +1,21 @@
 ﻿using backend.api.Controllers.Interfaces;
 using backend.api.Models;
 using backend.api.Models.Generated;
+using backend.api.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
 namespace backend.api.Controllers
 {
     [Produces(MediaTypeNames.Application.Json)]
-    [Route("api/[controller]")]
     public class CustomerController(ICustomer dbCustomerModel) : ControllerBase, ICustomerController
     {
         [HttpGet]
         [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]
         public IActionResult GetAllCustomers()
         {
-            return Ok(dbCustomerModel.GetAllCustomers());
+            var res = dbCustomerModel.GetAllCustomers();
+            return Ok(res);
         }
 
         [HttpGet("{id}")]
@@ -25,10 +26,10 @@ namespace backend.api.Controllers
             Customer? customerInfo = dbCustomerModel.GetCustomerDetails(id);
             if (customerInfo is null)
             {
-                return Ok(dbCustomerModel!.ErrorModel);
+                return NotFound(dbCustomerModel!.ErrorModel);
             }
 
-            return NotFound(customerInfo);
+            return Ok(customerInfo);
         }
 
         [HttpPut]

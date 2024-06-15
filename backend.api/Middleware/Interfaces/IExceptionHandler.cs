@@ -1,5 +1,4 @@
-﻿
-namespace backend.api.Middleware
+﻿namespace backend.api.Middleware.Interfaces
 {
     public interface IExceptionHandler
     {

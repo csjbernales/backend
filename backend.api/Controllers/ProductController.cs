@@ -1,18 +1,20 @@
 ﻿using backend.api.Controllers.Interfaces;
 using backend.api.Models;
 using backend.api.Models.Generated;
+using backend.api.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace backend.api.Controllers
 {
-    [Route("api/[controller]")]
+    [Produces(MediaTypeNames.Application.Json)]
     public class ProductController(IProduct dbProductModel) : ControllerBase, IProductController
     {
         [HttpGet]
         [ProducesResponseType(typeof(IList<Product>), StatusCodes.Status200OK)]
         public IActionResult GetAllProducts()
         {
-            return new JsonResult(dbProductModel.GetAllProducts());
+            return Ok(dbProductModel.GetAllProducts());
         }
 
         [HttpGet("{id}")]
@@ -23,10 +25,10 @@ namespace backend.api.Controllers
             Product? ProductInfo = dbProductModel.GetProductDetails(id);
             if (ProductInfo is null)
             {
-                return new JsonResult(dbProductModel!.ErrorModel);
+                return NotFound(dbProductModel!.ErrorModel);
             }
 
-            return new JsonResult(ProductInfo);
+            return Ok(ProductInfo);
         }
 
         [HttpPut]
@@ -47,10 +49,10 @@ namespace backend.api.Controllers
             bool result = dbProductModel.EditProduct(Product);
             if (result)
             {
-                return new JsonResult(result);
+                return Ok(result);
             }
 
-            return new JsonResult(dbProductModel.ErrorModel);
+            return BadRequest(dbProductModel.ErrorModel);
         }
 
         [HttpDelete]
@@ -61,10 +63,10 @@ namespace backend.api.Controllers
             bool result = dbProductModel.DeleteProduct(id);
             if (result)
             {
-                return new JsonResult(result);
+                return Ok(result);
             }
 
-            return new JsonResult(dbProductModel.ErrorModel);
+            return BadRequest(dbProductModel.ErrorModel);
         }
     }
 }

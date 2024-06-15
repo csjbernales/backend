@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 
 using Microsoft.AspNetCore.Mvc;
 using backend.api;
+using backend.api.Repository.Interfaces;
 [assembly: ApiController]
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

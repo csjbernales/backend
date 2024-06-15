@@ -1,4 +1,4 @@
-﻿namespace backend.api.Data
+﻿namespace backend.api.Data.Interfaces
 {
     public interface ICustomSqlConnectionStringBuilder
     {

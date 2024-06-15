@@ -1,5 +1,7 @@
-﻿
-namespace backend.api.Models.Generated
+﻿using backend.api.Models;
+using backend.api.Models.Generated;
+
+namespace backend.api.Repository.Interfaces
 {
     public interface ICustomer
     {
