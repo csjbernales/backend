@@ -1,6 +1,4 @@
 ﻿using backend.api.Data.Generated;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
-using Xunit;
 
 namespace backend.api.Models.Generated.Tests
 {
@@ -42,7 +40,7 @@ namespace backend.api.Models.Generated.Tests
             //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
-            var cust = new Customer
+            Customer cust = new()
             {
                 Id = 2,
                 Firstname = "Verna",
@@ -70,7 +68,7 @@ namespace backend.api.Models.Generated.Tests
             //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
-            var cust = new Customer
+            Customer cust = new()
             {
                 Id = 3,
                 Firstname = "Verna",
@@ -99,7 +97,7 @@ namespace backend.api.Models.Generated.Tests
             //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
-            var cust = new Customer
+            Customer cust = new()
             {
                 Id = 4,
                 Firstname = "Verna",
@@ -112,14 +110,14 @@ namespace backend.api.Models.Generated.Tests
             fullstackDBContext.Add(cust);
             fullstackDBContext.SaveChanges();
 
-            var updatedCust = fullstackDBContext.Customers.Where(x => x.Id == cust.Id).FirstOrDefault();
+            Customer? updatedCust = fullstackDBContext.Customers.Where(x => x.Id == cust.Id).FirstOrDefault();
 
-            updatedCust.Age = 26;
+            updatedCust!.Age = 26;
 
             Customer sut = new(fullstackDBContext);
 
             // Act
-            var allCustomers = sut.EditCustomer(updatedCust);
+            bool allCustomers = sut.EditCustomer(updatedCust);
 
             // Assert
             allCustomers.Should().BeTrue();
@@ -131,7 +129,7 @@ namespace backend.api.Models.Generated.Tests
             //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
-            var cust = new Customer
+            Customer cust = new()
             {
                 Id = 5,
                 Firstname = "Verna",
@@ -147,9 +145,9 @@ namespace backend.api.Models.Generated.Tests
             Customer sut = new(fullstackDBContext);
 
             // Act
-            var del = sut.DeleteCustomer(5);
+            bool del = sut.DeleteCustomer(5);
 
-            var allCustomers = sut.GetCustomerDetails(5);
+            Customer? allCustomers = sut.GetCustomerDetails(5);
             // Assert
             allCustomers.Should().Be(null);
             del.Should().BeTrue();
