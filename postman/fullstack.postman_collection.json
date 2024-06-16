@@ -10,17 +10,32 @@
 			"name": "customer",
 			"item": [
 				{
+					"name": "health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "get all",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7001/api/customer",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/customer",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "7001",
 							"path": [
 								"api",
 								"customer"
@@ -42,12 +57,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://localhost:7001/api/customer/1",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/customer/1",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "7001",
 							"path": [
 								"api",
 								"customer",
@@ -72,12 +85,10 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7001/api/customer",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/customer",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "7001",
 							"path": [
 								"api",
 								"customer"
@@ -101,34 +112,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:7001/api/customer",
-							"protocol": "https",
+							"raw": "{{baseUrl}}/api/customer",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "7001",
 							"path": [
 								"api",
 								"customer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "health",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://localhost:7001/health",
-							"protocol": "https",
-							"host": [
-								"localhost"
-							],
-							"port": "7001",
-							"path": [
-								"health"
 							]
 						}
 					},
@@ -142,16 +132,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:7001/api/customer/2",
-					"protocol": "https",
+					"raw": "{{baseUrl}}api/customer/",
 					"host": [
-						"localhost"
+						"{{baseUrl}}api"
 					],
-					"port": "7001",
 					"path": [
-						"api",
 						"customer",
-						"2"
+						""
 					]
 				}
 			},
