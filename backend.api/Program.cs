@@ -9,6 +9,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
 using System.Text.Json.Serialization;
 [assembly: ApiController]
 
@@ -49,7 +50,6 @@ builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "", Version = "v1" });
     c.SwaggerDoc("v1",
     new OpenApiInfo
     {
@@ -60,15 +60,18 @@ builder.Services.AddSwaggerGen(c =>
         Contact = new OpenApiContact
         {
             Name = "Jhon B",
-            Email = "csjbernales@gmail.com"
+            Email = "bcsjbernales@gmail.com"
         },
         License = new OpenApiLicense
         {
             Name = "Apache 2.0",
             Url = new Uri(builder.Configuration.GetSection("SwaggerDoc")["LicenseUrl"]!)
         }
-    }
-);
+    });
+
+    string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 
 WebApplication app = builder.Build();

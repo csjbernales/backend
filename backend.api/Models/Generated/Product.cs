@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace backend.api.Models.Generated;
@@ -18,6 +19,7 @@ public partial class Product
     [StringLength(50)]
     [Unicode(false)]
     [Required]
+    [DefaultValue(null)]
     public string Name { get; set; } = null!;
 
     /// <summary>
@@ -26,6 +28,7 @@ public partial class Product
     [StringLength(50)]
     [Unicode(false)]
     [Required]
+    [DefaultValue(null)]
     public string Category { get; set; } = null!;
 
     /// <summary>

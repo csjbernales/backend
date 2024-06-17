@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,6 +21,7 @@ namespace backend.api.Models.Generated
         [StringLength(50)]
         [Unicode(false)]
         [Required]
+        [DefaultValue(null)]
         public string Firstname { get; set; } = null!;
 
         /// <summary>
@@ -50,6 +52,7 @@ namespace backend.api.Models.Generated
         [StringLength(1)]
         [Unicode(false)]
         [Required]
+        [DefaultValue(null)]
         public string Sex { get; set; } = null!;
 
         /// <summary>

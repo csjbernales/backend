@@ -20,7 +20,7 @@ namespace backend.api.Controllers
         /// GetAllCustomers
         /// </summary>
         /// <returns>All customer in a list</returns>
-        /// <response code="200">Returns the newly created item</response>
+        /// <response code="200">Returns All customer</response>
         [HttpGet]
         [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]
         public IActionResult GetAllCustomers()
@@ -33,7 +33,7 @@ namespace backend.api.Controllers
         /// </summary>
         /// <param name="id">ID of customer to get details of</param>
         /// <returns>The customer details specified by id</returns>
-        /// <response code="200">Returns the newly created item</response>
+        /// <response code="200">Returns the customer by id</response>
         /// <response code="404">Returns customer not found error model</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]

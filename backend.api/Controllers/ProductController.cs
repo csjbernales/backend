@@ -33,7 +33,7 @@ namespace backend.api.Controllers
         /// </summary>
         /// <param name="id">ID of product to get details of</param>
         /// <returns>The product details specified by id</returns>
-        /// <response code="200">Returns the newly created item</response>
+        /// <response code="200">Returns the product by id</response>
         /// <response code="404">Returns product not found error model</response>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
