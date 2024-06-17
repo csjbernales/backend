@@ -1,9 +1,6 @@
-﻿using backend.api.Data.Generated;
-using backend.api.Models.Generated;
+﻿using backend.api.Models.Generated;
 using backend.api.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Xunit;
 
 namespace backend.api.Controllers.Tests
 {
@@ -18,7 +15,7 @@ namespace backend.api.Controllers.Tests
         [Fact()]
         public void GetAllCustomersTest()
         {
-            var customerInfo = new Customer
+            Customer customerInfo = new()
             {
                 Id = 1,
                 Firstname = "Test",
@@ -33,25 +30,25 @@ namespace backend.api.Controllers.Tests
                 ];
 
             A.CallTo(() => customer.GetAllCustomers()).Returns(customers);
-            var sut = new CustomerController(customer);
-            var res = sut.GetAllCustomers();
+            CustomerController sut = new(customer);
+            IActionResult res = sut.GetAllCustomers();
 
-            var okresult = res as OkObjectResult;
-            
+            OkObjectResult? okresult = res as OkObjectResult;
+
             okresult.Should().NotBeNull();
             okresult!.StatusCode.Should().Be(200);
 
-            var returnedCustomers = okresult.Value as IList<Customer>;
+            IList<Customer>? returnedCustomers = okresult.Value as IList<Customer>;
             returnedCustomers.Should().NotBeNull();
             returnedCustomers.Should().HaveCount(1);
-            var returnedCustomer = returnedCustomers![0];
+            Customer returnedCustomer = returnedCustomers![0];
             returnedCustomer.Should().BeEquivalentTo(customerInfo);
         }
 
         [Fact()]
         public void GetCustomerDetailsTest()
         {
-            var customerInfo = new Customer
+            Customer customerInfo = new()
             {
                 Id = 1,
                 Firstname = "Test",
@@ -62,15 +59,15 @@ namespace backend.api.Controllers.Tests
             };
 
             A.CallTo(() => this.customer.GetCustomerDetails(A<int>.Ignored)).Returns(customerInfo);
-            var sut = new CustomerController(customer);
-            var res = sut.GetCustomerDetails(1);
+            CustomerController sut = new(customer);
+            IActionResult res = sut.GetCustomerDetails(1);
 
-            var okresult = res as OkObjectResult;
+            OkObjectResult? okresult = res as OkObjectResult;
 
             okresult.Should().NotBeNull();
             okresult!.StatusCode.Should().Be(200);
 
-            var returnedCustomers = okresult.Value as Customer;
+            Customer? returnedCustomers = okresult.Value as Customer;
             returnedCustomers.Should().NotBeNull();
             returnedCustomers.Should().BeEquivalentTo(customerInfo);
         }
@@ -78,7 +75,7 @@ namespace backend.api.Controllers.Tests
         [Fact()]
         public void AddCustomerTest()
         {
-            var customerInfo = new Customer
+            Customer customerInfo = new()
             {
                 Id = 1,
                 Firstname = "Test",
@@ -88,16 +85,16 @@ namespace backend.api.Controllers.Tests
                 Sex = "M"
             };
 
-            var sut = new CustomerController(customer);
-            var res = sut.AddCustomer(customerInfo);
-            
+            CustomerController sut = new(customer);
+            IActionResult res = sut.AddCustomer(customerInfo);
+
             res.Should().NotBeNull();
         }
 
         [Fact()]
         public void EditCustomerTest()
         {
-            var customerInfo = new Customer
+            Customer customerInfo = new()
             {
                 Id = 1,
                 Firstname = "Test",
@@ -108,26 +105,24 @@ namespace backend.api.Controllers.Tests
             };
 
             A.CallTo(() => this.customer.EditCustomer(A<Customer>.Ignored)).Returns(true);
-            var sut = new CustomerController(customer);
-            var res = sut.EditCustomer(customerInfo);
+            CustomerController sut = new(customer);
+            IActionResult res = sut.EditCustomer(customerInfo);
 
-            var okresult = res as OkObjectResult;
+            NoContentResult? okresult = res as NoContentResult;
 
             okresult.Should().NotBeNull();
-            okresult!.StatusCode.Should().Be(200);
+            okresult!.StatusCode.Should().Be(204);
         }
 
         [Fact()]
         public void DeleteCustomerTest()
         {
             A.CallTo(() => this.customer.DeleteCustomer(A<int>.Ignored)).Returns(true);
-            var sut = new CustomerController(customer);
-            var res = sut.DeleteCustomer(1);
+            CustomerController sut = new(customer);
+            IActionResult res = sut.DeleteCustomer(1);
 
-            var okresult = res as OkObjectResult;
-
-            okresult.Should().NotBeNull();
-            okresult!.StatusCode.Should().Be(200);
+            ObjectResult statusCodeResult = Assert.IsType<ObjectResult>(res);
+            Assert.Equal(205, statusCodeResult.StatusCode);
         }
     }
 }

@@ -12,7 +12,7 @@ Run this command to update and match the current changes made from sql database
 
 Update-Database
 
-___________________________________________________________________________________________________
+____________________________________________________________________________________________
 
 
 todo:
@@ -21,16 +21,6 @@ auth
 Authentication - do latest
 Authorization
 
-Meaningful comments on methods 
-
 Call on Pocketbase
 
 UI
-
-move partials from business to data
-create a repository dependent from data layer
-
-swagger documentation
-
-ip:
-Unit tests 
