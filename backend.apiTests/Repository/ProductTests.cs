@@ -1,6 +1,4 @@
 ﻿using backend.api.Data.Generated;
-using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
-using Xunit;
 using Xunit.Priority;
 using PriorityAttribute = Xunit.Priority.PriorityAttribute;
 
@@ -43,7 +41,7 @@ namespace backend.api.Models.Generated.Tests
             //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
-            var cust = new Product
+            Product cust = new()
             {
                 Id = 2,
                 Name = "Item name",
@@ -68,7 +66,7 @@ namespace backend.api.Models.Generated.Tests
             //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
-            var cust = new Product
+            Product cust = new()
             {
                 Id = 3,
                 Name = "Item name",
@@ -94,7 +92,7 @@ namespace backend.api.Models.Generated.Tests
             //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
-            var cust = new Product
+            Product cust = new()
             {
                 Id = 4,
                 Name = "Item name",
@@ -104,14 +102,14 @@ namespace backend.api.Models.Generated.Tests
             fullstackDBContext.Add(cust);
             fullstackDBContext.SaveChanges();
 
-            var updatedCust = fullstackDBContext.Products.Where(x => x.Id == cust.Id).FirstOrDefault();
+            Product? updatedCust = fullstackDBContext.Products.Where(x => x.Id == cust.Id).FirstOrDefault();
 
-            updatedCust.Quantity = 26;
+            updatedCust!.Quantity = 26;
 
             Product sut = new(fullstackDBContext);
 
             // Act
-            var allProducts = sut.EditProduct(updatedCust);
+            bool allProducts = sut.EditProduct(updatedCust);
 
             // Assert
             allProducts.Should().BeTrue();
@@ -123,7 +121,7 @@ namespace backend.api.Models.Generated.Tests
             //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
-            var cust = new Product
+            Product cust = new()
             {
                 Id = 5,
                 Name = "Item name",
@@ -136,9 +134,9 @@ namespace backend.api.Models.Generated.Tests
             Product sut = new(fullstackDBContext);
 
             // Act
-            var del = sut.DeleteProduct(5);
+            bool del = sut.DeleteProduct(5);
 
-            var allProducts = sut.GetProductDetails(5);
+            Product? allProducts = sut.GetProductDetails(5);
             // Assert
             allProducts.Should().Be(null);
             del.Should().BeTrue();
