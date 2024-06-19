@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.api.Controllers.Interfaces
 {
-             public interface IProductController
+    public interface IProductController
     {
-                                           IActionResult AddProduct([FromBody] Product Product);
+        IActionResult AddProduct([FromBody] Product Product);
 
-                                           IActionResult DeleteProduct(int id);
+        IActionResult DeleteProduct(int id);
 
-                                           IActionResult EditProduct([FromBody] Product Product);
+        IActionResult EditProduct([FromBody] Product Product);
 
-                                    IActionResult GetAllProducts();
+        IActionResult GetAllProducts();
 
-                                           IActionResult GetProductDetails(int id);
+        IActionResult GetProductDetails(int id);
     }
 }

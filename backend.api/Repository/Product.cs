@@ -4,34 +4,34 @@ using System.Text.Json.Serialization;
 
 namespace backend.api.Models.Generated
 {
-             public partial class Product : IProduct
+    public partial class Product : IProduct
     {
-                             [JsonIgnore]
+        [JsonIgnore]
         public ErrorModel ErrorModel { get; set; }
 
         private readonly FullstackDBContext fullstackDBContext;
 
-                             public Product()
+        public Product()
         {
             ErrorModel = new ErrorModel();
             this.fullstackDBContext ??= new FullstackDBContext();
         }
 
 
-                             public Product(FullstackDBContext fullstackDBContext)
+        public Product(FullstackDBContext fullstackDBContext)
         {
             this.fullstackDBContext = fullstackDBContext;
             ErrorModel = new ErrorModel();
         }
 
 
-                                    public IList<Product> GetAllProducts()
+        public IList<Product> GetAllProducts()
         {
             return [.. fullstackDBContext.Products];
         }
 
 
-                                           public Product? GetProductDetails(int id)
+        public Product? GetProductDetails(int id)
         {
             IQueryable<Product> product = fullstackDBContext.Products.Where(x => x.Id == id);
             if (!product.Any())
@@ -42,7 +42,7 @@ namespace backend.api.Models.Generated
             return product.FirstOrDefault();
         }
 
-                                    public void AddProduct(Product product)
+        public void AddProduct(Product product)
         {
             if (product.Id == 0)
             {
@@ -56,7 +56,7 @@ namespace backend.api.Models.Generated
         }
 
 
-                                           public bool EditProduct(Product product)
+        public bool EditProduct(Product product)
         {
             int result = 0;
             Product? customerInfo = fullstackDBContext.Products.FirstOrDefault(x => x.Id == product.Id);
@@ -75,7 +75,7 @@ namespace backend.api.Models.Generated
         }
 
 
-                                           public bool DeleteProduct(int id)
+        public bool DeleteProduct(int id)
         {
             int result = 0;
             IQueryable<Product> product = fullstackDBContext.Products.Where(x => x.Id == id);

@@ -1,7 +1,6 @@
 ﻿using backend.api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Xunit;
 
 namespace backend.api.Middleware.Tests
 {
@@ -10,17 +9,17 @@ namespace backend.api.Middleware.Tests
         [Fact]
         public async Task Invoke_LogsInformationWithRequestMethodAndPath()
         {
-                       var fakeNext = A.Fake<RequestDelegate>();
-            var fakeLogger = A.Fake<ILogger<ErrorModel>>();
-            var context = new DefaultHttpContext();
+            RequestDelegate fakeNext = A.Fake<RequestDelegate>();
+            ILogger<ErrorModel> fakeLogger = A.Fake<ILogger<ErrorModel>>();
+            DefaultHttpContext context = new();
             context.Request.Method = "GET";
             context.Request.Path = "/testpath";
 
-            var interceptor = new Interceptor(fakeNext, fakeLogger);
+            Interceptor interceptor = new(fakeNext, fakeLogger);
 
-                       await interceptor.Invoke(context);
+            await interceptor.Invoke(context);
 
-                       Assert.True(true);
+            Assert.True(true);
         }
     }
 }

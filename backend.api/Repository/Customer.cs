@@ -4,31 +4,31 @@ using System.Text.Json.Serialization;
 
 namespace backend.api.Models.Generated
 {
-             public partial class Customer : ICustomer
+    public partial class Customer : ICustomer
     {
-                             [JsonIgnore]
+        [JsonIgnore]
         public ErrorModel ErrorModel { get; set; }
 
         private readonly FullstackDBContext fullstackDBContext;
 
-                             public Customer()
+        public Customer()
         {
             ErrorModel = new ErrorModel();
             this.fullstackDBContext ??= new FullstackDBContext();
         }
 
-                             public Customer(FullstackDBContext fullstackDBContext)
+        public Customer(FullstackDBContext fullstackDBContext)
         {
             this.fullstackDBContext = fullstackDBContext;
             ErrorModel = new ErrorModel();
         }
 
-                                    public IList<Customer> GetAllCustomers()
+        public IList<Customer> GetAllCustomers()
         {
             return [.. fullstackDBContext.Customers];
         }
 
-                                           public Customer? GetCustomerDetails(int id)
+        public Customer? GetCustomerDetails(int id)
         {
             IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
             if (!customer.Any())
@@ -39,7 +39,7 @@ namespace backend.api.Models.Generated
             return customer.FirstOrDefault();
         }
 
-                                    public void AddCustomer(Customer customer)
+        public void AddCustomer(Customer customer)
         {
             if (customer.Id == 0)
             {
@@ -52,7 +52,7 @@ namespace backend.api.Models.Generated
             }
         }
 
-                                           public bool EditCustomer(Customer customer)
+        public bool EditCustomer(Customer customer)
         {
             int result = 0;
             Customer? customerInfo = fullstackDBContext.Customers.FirstOrDefault(x => x.Id == customer.Id);
@@ -70,7 +70,7 @@ namespace backend.api.Models.Generated
             return result > 0;
         }
 
-                                           public bool DeleteCustomer(int id)
+        public bool DeleteCustomer(int id)
         {
             int result = 0;
             IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);

@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace backend.api.Data.Tests
+﻿namespace backend.api.Data.Tests
 {
     public class CustomSqlConnectionStringBuilderTests
     {

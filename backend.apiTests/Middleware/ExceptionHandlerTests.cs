@@ -9,30 +9,30 @@ namespace backend.api.Middleware.Tests
         [Fact]
         public async Task Invoke_CallsNext_WhenNoExceptionOccurs()
         {
-                       var fakeNext = A.Fake<RequestDelegate>();
-            var fakeLogger = A.Fake<ILogger<ErrorModel>>();
-            var context = new DefaultHttpContext();
+            RequestDelegate fakeNext = A.Fake<RequestDelegate>();
+            ILogger<ErrorModel> fakeLogger = A.Fake<ILogger<ErrorModel>>();
+            DefaultHttpContext context = new();
 
-            var handler = new ExceptionHandler(fakeNext, fakeLogger);
+            ExceptionHandler handler = new(fakeNext, fakeLogger);
 
-                       await handler.Invoke(context);
+            await handler.Invoke(context);
 
-                       A.CallTo(() => fakeNext(context)).MustHaveHappenedOnceExactly();
+            A.CallTo(() => fakeNext(context)).MustHaveHappenedOnceExactly();
         }
 
-               [Fact]
+        [Fact]
         public async Task Invoke_LogsErrorAndThrowsInvalidOperationException_WhenExceptionOccurs()
         {
-                       var fakeNext = A.Fake<RequestDelegate>();
-            var fakeLogger = A.Fake<ILogger<ErrorModel>>();
-            var context = new DefaultHttpContext();
-            var exception = new Exception("Test exception");
+            RequestDelegate fakeNext = A.Fake<RequestDelegate>();
+            ILogger<ErrorModel> fakeLogger = A.Fake<ILogger<ErrorModel>>();
+            DefaultHttpContext context = new();
+            Exception exception = new("Test exception");
 
             A.CallTo(() => fakeNext(context)).Throws(exception);
 
-            var handler = new ExceptionHandler(fakeNext, fakeLogger);
+            ExceptionHandler handler = new(fakeNext, fakeLogger);
 
-                       var ex = await Assert.ThrowsAsync<InvalidOperationException>(() => handler.Invoke(context));
+            InvalidOperationException ex = await Assert.ThrowsAsync<InvalidOperationException>(() => handler.Invoke(context));
             Assert.Equal("Test exception", ex.Message);
         }
     }

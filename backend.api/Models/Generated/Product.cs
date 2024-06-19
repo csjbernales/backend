@@ -6,21 +6,21 @@ namespace backend.api.Models.Generated;
 
 public partial class Product
 {
-             [Key]
+    [Key]
     [Required]
     public int Id { get; set; }
 
-             [StringLength(50)]
+    [StringLength(50)]
     [Unicode(false)]
     [Required]
     [DefaultValue(null)]
     public string Name { get; set; } = null!;
 
-             [StringLength(50)]
+    [StringLength(50)]
     [Unicode(false)]
     [Required]
     [DefaultValue(null)]
     public string Category { get; set; } = null!;
 
-             public int Quantity { get; set; }
+    public int Quantity { get; set; }
 }

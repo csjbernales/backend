@@ -12,10 +12,9 @@ namespace backend.api.Auth
             if (!context.User.HasClaim(c => c.Type == "scope" && c.Issuer == requirement.Issuer))
                 return Task.CompletedTask;
 
-            string[] scopes = context.User
-   .FindFirst(c => c.Type == "scope" && c.Issuer == requirement.Issuer).Value.Split(' ');
+            List<string> scopes = context.User.FindFirst(c => c.Type == "scope" && c.Issuer == requirement.Issuer)!.Value.Split(' ').ToList();
 
-            if (scopes.Any(s => s == requirement.Scope))
+            if (scopes.Exists(s => s == requirement.Scope))
                 context.Succeed(requirement);
 
             return Task.CompletedTask;

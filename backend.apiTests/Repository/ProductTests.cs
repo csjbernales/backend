@@ -12,7 +12,7 @@ namespace backend.api.Models.Generated.Tests
         [Fact, Priority(0)]
         public void A_GetAllProductsTest()
         {
-                       dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             fullstackDBContext.Products.Add(
                 new Product
@@ -27,15 +27,15 @@ namespace backend.api.Models.Generated.Tests
 
             Product sut = new(fullstackDBContext);
 
-                       IList<Product> allProducts = sut.GetAllProducts();
+            IList<Product> allProducts = sut.GetAllProducts();
 
-                       allProducts.Should().HaveCount(1);
+            allProducts.Should().HaveCount(1);
         }
 
         [Fact()]
         public void B_GetProductDetailsTest()
         {
-                       dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Product cust = new()
             {
@@ -49,15 +49,15 @@ namespace backend.api.Models.Generated.Tests
 
             Product sut = new(fullstackDBContext);
 
-                       Product? allProducts = sut.GetProductDetails(2);
+            Product? allProducts = sut.GetProductDetails(2);
 
-                       allProducts.Should().BeSameAs(cust);
+            allProducts.Should().BeSameAs(cust);
         }
 
         [Fact()]
         public void C_AddProductTest()
         {
-                       dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Product cust = new()
             {
@@ -71,16 +71,16 @@ namespace backend.api.Models.Generated.Tests
 
             Product sut = new(fullstackDBContext);
 
-                       sut.AddProduct(cust);
+            sut.AddProduct(cust);
             Product? allProducts = sut.GetProductDetails(3);
 
-                       allProducts.Should().BeSameAs(cust);
+            allProducts.Should().BeSameAs(cust);
         }
 
         [Fact()]
         public void D_EditProductTest()
         {
-                       dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Product cust = new()
             {
@@ -98,15 +98,15 @@ namespace backend.api.Models.Generated.Tests
 
             Product sut = new(fullstackDBContext);
 
-                       bool allProducts = sut.EditProduct(updatedCust);
+            bool allProducts = sut.EditProduct(updatedCust);
 
-                       allProducts.Should().BeTrue();
+            allProducts.Should().BeTrue();
         }
 
         [Fact()]
         public void E_DeleteProductTest()
         {
-                       dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
+            dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Product cust = new()
             {
@@ -120,10 +120,10 @@ namespace backend.api.Models.Generated.Tests
 
             Product sut = new(fullstackDBContext);
 
-                       bool del = sut.DeleteProduct(5);
+            bool del = sut.DeleteProduct(5);
 
             Product? allProducts = sut.GetProductDetails(5);
-                       allProducts.Should().Be(null);
+            allProducts.Should().Be(null);
             del.Should().BeTrue();
         }
     }

@@ -3,26 +3,26 @@ using backend.api.Models.Generated;
 
 namespace backend.api.Repository.Interfaces
 {
-             public interface IProduct
+    public interface IProduct
     {
-                             string Category { get; set; }
+        string Category { get; set; }
 
-                             ErrorModel ErrorModel { get; set; }
+        ErrorModel ErrorModel { get; set; }
 
-                             int Id { get; set; }
+        int Id { get; set; }
 
-                             string Name { get; set; }
+        string Name { get; set; }
 
-                             int Quantity { get; set; }
+        int Quantity { get; set; }
 
-                                    void AddProduct(Product product);
+        void AddProduct(Product product);
 
-                                           bool DeleteProduct(int id);
+        bool DeleteProduct(int id);
 
-                                           bool EditProduct(Product product);
+        bool EditProduct(Product product);
 
-                                    IList<Product> GetAllProducts();
+        IList<Product> GetAllProducts();
 
-                                           Product? GetProductDetails(int id);
+        Product? GetProductDetails(int id);
     }
 }

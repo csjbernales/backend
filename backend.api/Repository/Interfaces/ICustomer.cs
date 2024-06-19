@@ -3,32 +3,32 @@ using backend.api.Models.Generated;
 
 namespace backend.api.Repository.Interfaces
 {
-             public interface ICustomer
+    public interface ICustomer
     {
-                             int? Age { get; set; }
+        int? Age { get; set; }
 
-                             string Firstname { get; set; }
+        string Firstname { get; set; }
 
-                             int Id { get; set; }
+        int Id { get; set; }
 
-                             bool IsEmployed { get; set; }
+        bool IsEmployed { get; set; }
 
-                             string? Lastname { get; set; }
+        string? Lastname { get; set; }
 
-                             string? Middlename { get; set; }
+        string? Middlename { get; set; }
 
-                             string Sex { get; set; }
+        string Sex { get; set; }
 
-                             ErrorModel ErrorModel { get; set; }
+        ErrorModel ErrorModel { get; set; }
 
-                                    void AddCustomer(Customer customer);
+        void AddCustomer(Customer customer);
 
-                                           bool DeleteCustomer(int id);
+        bool DeleteCustomer(int id);
 
-                                           bool EditCustomer(Customer customer);
+        bool EditCustomer(Customer customer);
 
-                                    IList<Customer> GetAllCustomers();
+        IList<Customer> GetAllCustomers();
 
-                                           Customer? GetCustomerDetails(int id);
+        Customer? GetCustomerDetails(int id);
     }
 }

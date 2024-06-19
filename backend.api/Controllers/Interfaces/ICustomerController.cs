@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace backend.api.Controllers.Interfaces
 {
-             public interface ICustomerController
+    public interface ICustomerController
     {
-                                           IActionResult AddCustomer([FromBody] Customer customer);
+        IActionResult AddCustomer([FromBody] Customer customer);
 
-                                           IActionResult DeleteCustomer(int id);
+        IActionResult DeleteCustomer(int id);
 
-                                           IActionResult EditCustomer([FromBody] Customer customer);
+        IActionResult EditCustomer([FromBody] Customer customer);
 
-                                    IActionResult GetAllCustomers();
+        IActionResult GetAllCustomers();
 
-                                           IActionResult GetCustomerDetails(int id);
+        IActionResult GetCustomerDetails(int id);
     }
 }
