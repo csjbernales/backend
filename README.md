@@ -29,3 +29,4 @@ Authorization
 Call on Pocketbase
 
 UI
+postman to generate Access token 
