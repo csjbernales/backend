@@ -292,22 +292,22 @@
 					"urlencoded": [
 						{
 							"key": "client_id",
-							"value": "X5gASAaw4wXNk2pYs0BF3BinPrkKPr6j",
+							"value": "{{client_id}}",
 							"type": "text"
 						},
 						{
 							"key": "client_secret",
-							"value": "NjkrZDUPOnxJEXQt4sB11WAHQ0NF8q4qP1Mv8i1_MUliBhr2nNJjEnPidGzNDgs5",
+							"value": "{{client_secret}}",
 							"type": "text"
 						},
 						{
 							"key": "audience",
-							"value": "https://dev-48yt3g6lxsb6vr82.eu.auth0.com/api/v2/",
+							"value": "{{auth_audience}}",
 							"type": "text"
 						},
 						{
 							"key": "grant_type",
-							"value": "client_credentials",
+							"value": "{{grant_type}}",
 							"type": "text"
 						}
 					]
@@ -357,7 +357,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InptaE1iZmlhVDZrRmh0MWF0ejFMUyJ9.eyJpc3MiOiJodHRwczovL2Rldi00OHl0M2c2bHhzYjZ2cjgyLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJYNWdBU0FhdzR3WE5rMnBZczBCRjNCaW5QcmtLUHI2akBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9kZXYtNDh5dDNnNmx4c2I2dnI4Mi5ldS5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTcxODgwNTc4NiwiZXhwIjoxNzE4ODkyMTg2LCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMiLCJhenAiOiJYNWdBU0FhdzR3WE5rMnBZczBCRjNCaW5QcmtLUHI2aiJ9.JM1Zm3UHapaAQ9eTW0GydYOkqiGXoQfUVasW3ebGxy07KceqZ7x88J75bg3Xbu9yQU1EUZYvcHMKkg8uzK-O2PtUjd3z58FX9qUlfFVMaIy2dauLFZaRb7VE5uIWuqoOl9sPZU4sfM3c-I5O2StEisZ_SkCWuU6yvsdoSRc-oftGzr7UeElwmUtvUC_LFCZOqzi6R-NM1pUStHTDPBe8JU7oyZMjA-fyoHULe-83Ac80ltISj8lM2ZviCeWrDBV-Z64BwC88ylBDZVxb5uCNMfX-Vy22cZRhYe_ppEI-N7odocFKNGgHNss8HyBfVF1wio1o1HmUKRHRzh0nFT72Ug",
+				"value": "{{access_token}}",
 				"type": "string"
 			}
 		]
