@@ -69,6 +69,35 @@ builder.Services.AddSwaggerGen(c =>
             Url = new Uri(builder.Configuration.GetSection("SwaggerDoc")["LicenseUrl"]!)
         }
     });
+
+    // Add the Bearer token security definition
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Description = "JWT Authorization header using the Bearer scheme.",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+
+    // Require Bearer token for all endpoints
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -87,6 +116,8 @@ builder.Services.AddAuthorization();
 //    policy.Requirements.Add(new HasScopeRequirement("read:messages", builder.Configuration["Auth0:Domain"]!)));
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, AuthorizationMiddlewareResultHandler>();
 
 //--------------------------------------------------------------------------------------------------
 
@@ -109,7 +140,7 @@ app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandler>();
 
-app.MapControllers();
+app.MapControllers().RequireAuthorization();
 
 await app.RunAsync();
 

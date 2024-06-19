@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "8301526c-0a97-42ae-9fa6-2e17cb103575",
 		"name": "fullstack",
-		"schema": "https:schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "9534788"
 	},
 	"item": [
@@ -39,13 +39,6 @@
 							"path": [
 								"api",
 								"customer"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1",
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -119,6 +112,24 @@
 							"path": [
 								"api",
 								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/customer/",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"customer",
+								""
 							]
 						}
 					},
@@ -243,26 +254,134 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/product/",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"product",
+								""
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
 		{
-			"name": "delete",
+			"name": "token",
 			"request": {
-				"method": "DELETE",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "X5gASAaw4wXNk2pYs0BF3BinPrkKPr6j",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "NjkrZDUPOnxJEXQt4sB11WAHQ0NF8q4qP1Mv8i1_MUliBhr2nNJjEnPidGzNDgs5",
+							"type": "text"
+						},
+						{
+							"key": "audience",
+							"value": "https://dev-48yt3g6lxsb6vr82.eu.auth0.com/api/v2/",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "{{baseUrl}}api/customer/",
+					"raw": "https://dev-48yt3g6lxsb6vr82.eu.auth0.com/oauth/token",
+					"protocol": "https",
 					"host": [
-						"{{baseUrl}}api"
+						"dev-48yt3g6lxsb6vr82",
+						"eu",
+						"auth0",
+						"com"
 					],
 					"path": [
-						"customer",
-						""
+						"oauth",
+						"token"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InptaE1iZmlhVDZrRmh0MWF0ejFMUyJ9.eyJpc3MiOiJodHRwczovL2Rldi00OHl0M2c2bHhzYjZ2cjgyLmV1LmF1dGgwLmNvbS8iLCJzdWIiOiJYNWdBU0FhdzR3WE5rMnBZczBCRjNCaW5QcmtLUHI2akBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9kZXYtNDh5dDNnNmx4c2I2dnI4Mi5ldS5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTcxODgwNTc4NiwiZXhwIjoxNzE4ODkyMTg2LCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMiLCJhenAiOiJYNWdBU0FhdzR3WE5rMnBZczBCRjNCaW5QcmtLUHI2aiJ9.JM1Zm3UHapaAQ9eTW0GydYOkqiGXoQfUVasW3ebGxy07KceqZ7x88J75bg3Xbu9yQU1EUZYvcHMKkg8uzK-O2PtUjd3z58FX9qUlfFVMaIy2dauLFZaRb7VE5uIWuqoOl9sPZU4sfM3c-I5O2StEisZ_SkCWuU6yvsdoSRc-oftGzr7UeElwmUtvUC_LFCZOqzi6R-NM1pUStHTDPBe8JU7oyZMjA-fyoHULe-83Ac80ltISj8lM2ZviCeWrDBV-Z64BwC88ylBDZVxb5uCNMfX-Vy22cZRhYe_ppEI-N7odocFKNGgHNss8HyBfVF1wio1o1HmUKRHRzh0nFT72Ug",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
