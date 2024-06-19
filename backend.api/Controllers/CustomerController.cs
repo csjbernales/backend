@@ -2,6 +2,7 @@
 using backend.api.Models;
 using backend.api.Models.Generated;
 using backend.api.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
@@ -12,6 +13,7 @@ namespace backend.api.Controllers
     /// Customer API Controller
     /// </summary>
     /// <param name="dbCustomerModel"></param>
+    [Authorize]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("api/[controller]")]
     public class CustomerController(ICustomer dbCustomerModel) : ControllerBase, ICustomerController

@@ -1,15 +1,20 @@
+using backend.api.Auth;
 using backend.api.Data;
 using backend.api.Data.Generated;
 using backend.api.Middleware;
 using backend.api.Models;
 using backend.api.Models.Generated;
 using backend.api.Repository.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 [assembly: ApiController]
 
@@ -31,22 +36,21 @@ ConnectionStrings dbProps = new()
     MultiSubnetFailover = bool.Parse(conn["MultiSubnetFailover"]!)
 };
 
-builder.Services.AddScoped<ICustomer, Customer>();
-builder.Services.AddScoped<IProduct, Product>();
 
 SqlConnection connection = new(new CustomSqlConnectionStringBuilder(dbProps).ConnectionString());
 
-builder.Services.AddDbContext<FullstackDBContext>(options =>
-        options.UseSqlServer(connection));
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
 });
 
+builder.Services.AddScoped<ICustomer, Customer>();
+builder.Services.AddScoped<IProduct, Product>();
+builder.Services.AddDbContext<FullstackDBContext>(options =>
+        options.UseSqlServer(connection));
 builder.Services.AddHealthChecks();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -74,24 +78,52 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}/";
+    options.Audience = builder.Configuration["Auth0:Audience"];
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = ClaimTypes.NameIdentifier
+    };
+});
+
+builder.Services
+  .AddAuthorization(
+  //  options =>
+  //{
+  //    options.AddPolicy(
+  //      "read:messages",
+  //      policy => policy.Requirements.Add(
+  //        new HasScopeRequirement("read:messages", builder.Configuration["Auth0:Domain"]!)
+  //      )
+  //    );
+  //}
+  );
+
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
+//--------------------------------------------------------------------------------------------------
+
 WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("v1/swagger.json", "Backend API v1");
+        c.SwaggerEndpoint("v1/swagger.json", "Backend API - V1");
     });
 }
 
 app.UseHttpsRedirection();
 
-app.UseMiddleware<ExceptionHandler>();
-
 app.UseHealthChecks("/health");
+
 app.UseAuthorization();
+
+app.UseMiddleware<ExceptionHandler>();
 
 app.MapControllers();
 
