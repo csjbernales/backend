@@ -61,3 +61,53 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+
+
+
+
+# let moment = require('moment');
+
+# let lastTokenTime = pm.environment.get('last_token_time');
+# let authToken = pm.environment.get('access_token');
+
+# if (!lastTokenTime || moment().diff(moment(lastTokenTime), 'minutes') > 1440) 
+# {
+#     let url = 'https://dev-48yt3g6lxsb6vr82.eu.auth0.com/oauth/token';
+#     let headers = 
+#     {
+#         'Accept': 'application/json',
+#         'Content-Type': 'x-www-form-urlencoded'
+#     };
+#     let body = 
+#     {
+#         "client_id": pm.environment.get('client_id'),
+#         "client_secret": pm.environment.get('client_secret'),
+#         "grant_type": pm.environment.get('grant_type'),
+#         "audience": pm.environment.get('audience')
+#     };
+
+#     pm.sendRequest({
+#         url: url,
+#         method: 'POST',
+#         header: headers,
+#         body: {
+#             mode: 'raw',
+#             raw: JSON.stringify(body)
+#         }
+#     }, function (err, res) 
+#     {
+#         if (err) 
+#         {
+#             console.log(err);
+#         } else 
+#         {
+#             let responseJson = res.json();
+#             if (responseJson.access_token) 
+#             {
+#                 pm.environment.set('access_token', responseJson.access_token);
+#                 pm.environment.set('last_token_time', moment().toISOString());
+#             }
+#         }
+#     });
+# }
