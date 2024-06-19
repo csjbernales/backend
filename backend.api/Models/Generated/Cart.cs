@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.api.Models.Generated;
 
+[Keyless]
 [Table("Cart")]
 public partial class Cart
 {

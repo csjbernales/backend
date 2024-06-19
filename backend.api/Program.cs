@@ -13,11 +13,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
-[assembly: ApiController]
 
+[assembly: ApiController]
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 //Add services to the container.
@@ -36,9 +35,7 @@ ConnectionStrings dbProps = new()
     MultiSubnetFailover = bool.Parse(conn["MultiSubnetFailover"]!)
 };
 
-
 SqlConnection connection = new(new CustomSqlConnectionStringBuilder(dbProps).ConnectionString());
-
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -72,16 +69,12 @@ builder.Services.AddSwaggerGen(c =>
             Url = new Uri(builder.Configuration.GetSection("SwaggerDoc")["LicenseUrl"]!)
         }
     });
-
-    string xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-    string xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
-    options.Authority = $"https:{builder.Configuration["Auth0:Domain"]}/";
+    options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}/";
     options.Audience = builder.Configuration["Auth0:Audience"];
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -89,9 +82,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
-builder.Services
-  .AddAuthorization(
-           );
+builder.Services.AddAuthorization();
+//builder.Services.AddAuthorizationBuilder().AddPolicy("read:messages", policy =>
+//    policy.Requirements.Add(new HasScopeRequirement("read:messages", builder.Configuration["Auth0:Domain"]!)));
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
@@ -120,6 +113,6 @@ app.MapControllers();
 
 await app.RunAsync();
 
-
 [ExcludeFromCodeCoverage]
-partial class Program { }
+internal partial class Program
+{ }
