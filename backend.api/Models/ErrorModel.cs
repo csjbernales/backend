@@ -2,15 +2,9 @@
 
 namespace backend.api.Models
 {
-    /// <summary>
-    /// ErrorModel
-    /// </summary>
-    [NotMapped]
+             [NotMapped]
     public class ErrorModel
     {
-        /// <summary>
-        /// ErrorMessage
-        /// </summary>
-        public string? ErrorMessage { get; set; }
+                             public string? ErrorMessage { get; set; }
     }
 }

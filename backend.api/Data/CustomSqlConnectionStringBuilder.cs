@@ -3,16 +3,8 @@ using backend.api.Models;
 
 namespace backend.api.Data
 {
-    /// <summary>
-    /// sql string builder from app settings
-    /// </summary>
-    /// <param name="connectionStrings">ConnectionStrings class</param>
     public class CustomSqlConnectionStringBuilder(ConnectionStrings connectionStrings) : ICustomSqlConnectionStringBuilder
     {
-        /// <summary>
-        /// Connection string builder
-        /// </summary>
-        /// <returns>Connection string built</returns>
         public string ConnectionString()
         {
             if (connectionStrings is not null)

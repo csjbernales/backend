@@ -9,7 +9,6 @@ namespace backend.api.Models.Generated.Tests
         [Fact()]
         public void A_GetAllCustomersTest()
         {
-            //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             fullstackDBContext.Customers.Add(
@@ -27,17 +26,14 @@ namespace backend.api.Models.Generated.Tests
 
             Customer sut = new(fullstackDBContext);
 
-            // Act
             IList<Customer> allCustomers = sut.GetAllCustomers();
 
-            // Assert
             allCustomers.Should().HaveCount(1);
         }
 
         [Fact()]
         public void B_GetCustomerDetailsTest()
         {
-            //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Customer cust = new()
@@ -55,17 +51,14 @@ namespace backend.api.Models.Generated.Tests
 
             Customer sut = new(fullstackDBContext);
 
-            // Act
             Customer? allCustomers = sut.GetCustomerDetails(2);
 
-            // Assert
             allCustomers.Should().BeSameAs(cust);
         }
 
         [Fact()]
         public void C_AddCustomerTest()
         {
-            //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Customer cust = new()
@@ -83,18 +76,15 @@ namespace backend.api.Models.Generated.Tests
 
             Customer sut = new(fullstackDBContext);
 
-            // Act
             sut.AddCustomer(cust);
             Customer? allCustomers = sut.GetCustomerDetails(3);
 
-            // Assert
             allCustomers.Should().BeSameAs(cust);
         }
 
         [Fact()]
         public void D_EditCustomerTest()
         {
-            //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Customer cust = new()
@@ -116,17 +106,14 @@ namespace backend.api.Models.Generated.Tests
 
             Customer sut = new(fullstackDBContext);
 
-            // Act
             bool allCustomers = sut.EditCustomer(updatedCust);
 
-            // Assert
             allCustomers.Should().BeTrue();
         }
 
         [Fact()]
         public void E_DeleteCustomerTest()
         {
-            //Arrange
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Customer cust = new()
@@ -144,11 +131,9 @@ namespace backend.api.Models.Generated.Tests
 
             Customer sut = new(fullstackDBContext);
 
-            // Act
             bool del = sut.DeleteCustomer(5);
 
             Customer? allCustomers = sut.GetCustomerDetails(5);
-            // Assert
             allCustomers.Should().Be(null);
             del.Should().BeTrue();
         }

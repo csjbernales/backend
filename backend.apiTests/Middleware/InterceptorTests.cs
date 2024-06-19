@@ -10,8 +10,7 @@ namespace backend.api.Middleware.Tests
         [Fact]
         public async Task Invoke_LogsInformationWithRequestMethodAndPath()
         {
-            // Arrange
-            var fakeNext = A.Fake<RequestDelegate>();
+                       var fakeNext = A.Fake<RequestDelegate>();
             var fakeLogger = A.Fake<ILogger<ErrorModel>>();
             var context = new DefaultHttpContext();
             context.Request.Method = "GET";
@@ -19,11 +18,9 @@ namespace backend.api.Middleware.Tests
 
             var interceptor = new Interceptor(fakeNext, fakeLogger);
 
-            // Act
-            await interceptor.Invoke(context);
+                       await interceptor.Invoke(context);
 
-            // Assert
-            Assert.True(true);
+                       Assert.True(true);
         }
     }
 }

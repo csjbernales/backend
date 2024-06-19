@@ -20,7 +20,7 @@ using System.Text.Json.Serialization;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//Add services to the container.
 
 IConfigurationSection conn = builder.Configuration.GetSection("ConnectionString");
 
@@ -81,7 +81,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
-    options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}/";
+    options.Authority = $"https:{builder.Configuration["Auth0:Domain"]}/";
     options.Audience = builder.Configuration["Auth0:Audience"];
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -91,16 +91,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services
   .AddAuthorization(
-  //  options =>
-  //{
-  //    options.AddPolicy(
-  //      "read:messages",
-  //      policy => policy.Requirements.Add(
-  //        new HasScopeRequirement("read:messages", builder.Configuration["Auth0:Domain"]!)
-  //      )
-  //    );
-  //}
-  );
+           );
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 

@@ -4,52 +4,31 @@ using System.Text.Json.Serialization;
 
 namespace backend.api.Models.Generated
 {
-    /// <summary>
-    /// Customer model
-    /// </summary>
-    public partial class Customer : ICustomer
+             public partial class Customer : ICustomer
     {
-        /// <summary>
-        /// Error model property
-        /// </summary>
-        [JsonIgnore]
+                             [JsonIgnore]
         public ErrorModel ErrorModel { get; set; }
 
         private readonly FullstackDBContext fullstackDBContext;
 
-        /// <summary>
-        /// Customer constructor
-        /// </summary>
-        public Customer()
+                             public Customer()
         {
             ErrorModel = new ErrorModel();
             this.fullstackDBContext ??= new FullstackDBContext();
         }
 
-        /// <summary>
-        /// Customer constructor with DI dbContext
-        /// </summary>
-        public Customer(FullstackDBContext fullstackDBContext)
+                             public Customer(FullstackDBContext fullstackDBContext)
         {
             this.fullstackDBContext = fullstackDBContext;
             ErrorModel = new ErrorModel();
         }
 
-        /// <summary>
-        /// Get all customers
-        /// </summary>
-        /// <returns>All customers</returns>
-        public IList<Customer> GetAllCustomers()
+                                    public IList<Customer> GetAllCustomers()
         {
             return [.. fullstackDBContext.Customers];
         }
 
-        /// <summary>
-        /// Get customer by id
-        /// </summary>
-        /// <param name="id">ID of customer</param>
-        /// <returns>The customer details by id</returns>
-        public Customer? GetCustomerDetails(int id)
+                                           public Customer? GetCustomerDetails(int id)
         {
             IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
             if (!customer.Any())
@@ -60,11 +39,7 @@ namespace backend.api.Models.Generated
             return customer.FirstOrDefault();
         }
 
-        /// <summary>
-        /// Add customer by adding the customer detail in the request body
-        /// </summary>
-        /// <param name="customer"></param>
-        public void AddCustomer(Customer customer)
+                                    public void AddCustomer(Customer customer)
         {
             if (customer.Id == 0)
             {
@@ -77,12 +52,7 @@ namespace backend.api.Models.Generated
             }
         }
 
-        /// <summary>
-        /// Edit the customer detail by adding the customer detail in the request body
-        /// </summary>
-        /// <param name="customer"></param>
-        /// <returns></returns>
-        public bool EditCustomer(Customer customer)
+                                           public bool EditCustomer(Customer customer)
         {
             int result = 0;
             Customer? customerInfo = fullstackDBContext.Customers.FirstOrDefault(x => x.Id == customer.Id);
@@ -100,12 +70,7 @@ namespace backend.api.Models.Generated
             return result > 0;
         }
 
-        /// <summary>
-        /// Delete a customer by id
-        /// </summary>
-        /// <param name="id">Customer id to be deleted</param>
-        /// <returns>True if it succeeded on deletion</returns>
-        public bool DeleteCustomer(int id)
+                                           public bool DeleteCustomer(int id)
         {
             int result = 0;
             IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
