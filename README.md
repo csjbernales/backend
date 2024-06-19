@@ -12,6 +12,11 @@ Run this command to update and match the current changes made from sql database
 
 Update-Database
 
+Add authorization to authentication
+add after addauthentication() in Program.cs
+
+//builder.Services.AddAuthorizationBuilder().AddPolicy("read:messages", policy =>
+//    policy.Requirements.Add(new HasScopeRequirement("read:messages", builder.Configuration["Auth0:Domain"]!)));
 ____________________________________________________________________________________________
 
 

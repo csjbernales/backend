@@ -112,8 +112,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 });
 
 builder.Services.AddAuthorization();
-//builder.Services.AddAuthorizationBuilder().AddPolicy("read:messages", policy =>
-//    policy.Requirements.Add(new HasScopeRequirement("read:messages", builder.Configuration["Auth0:Domain"]!)));
+
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 

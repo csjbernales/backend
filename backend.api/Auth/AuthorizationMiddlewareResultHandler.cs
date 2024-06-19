@@ -22,7 +22,7 @@ namespace backend.api.Auth
             await DefaultHandler.HandleAsync(next, context, policy, authorizeResult);
         }
 
-        bool Show404ForForbiddenResult(PolicyAuthorizationResult policyAuthorizationResult)
+        private static bool Show404ForForbiddenResult(PolicyAuthorizationResult policyAuthorizationResult)
         {
             return policyAuthorizationResult.Forbidden &&
                    policyAuthorizationResult.AuthorizationFailure!.FailedRequirements
