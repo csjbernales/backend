@@ -1,24 +1,21 @@
-using backend.api.Auth;
 using backend.api.Data;
 using backend.api.Data.Generated;
 using backend.api.Middleware;
 using backend.api.Models;
 using backend.api.Models.Generated;
 using backend.api.Repository.Interfaces;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text.Json.Serialization;
-
 [assembly: ApiController]
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
 
 IConfigurationSection conn = builder.Configuration.GetSection("ConnectionString");
 
@@ -34,45 +31,13 @@ ConnectionStrings dbProps = new()
     MultiSubnetFailover = bool.Parse(conn["MultiSubnetFailover"]!)
 };
 
+builder.Services.AddScoped<ICustomer, Customer>();
+builder.Services.AddScoped<IProduct, Product>();
+
 SqlConnection connection = new(new CustomSqlConnectionStringBuilder(dbProps).ConnectionString());
 
-builder.Services.AddDbContext<FullstackDBContext>(options => options.UseSqlServer(connection));
-
-
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddAuthentication("Development")
-        .AddScheme<AuthenticationSchemeOptions, DevelopmentAuthenticationHandler>("Development", options => { });
-}
-else
-{
-    builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    }).AddJwtBearer(options =>
-    {
-        options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}/";
-        options.Audience = builder.Configuration["Auth0:Audience"];
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidIssuer = $"https://{builder.Configuration["Auth0:Domain"]}/",
-            ValidAudience = builder.Configuration["Auth0:Audience"],
-        };
-    });
-}
-
-builder.Services
-  .AddAuthorizationBuilder()
-    .AddPolicy("read:messages", policy => policy.Requirements.Add(
-          new HasScopeRequirement("read:messages", $"{builder.Configuration["Auth0:Domain"]}")
-        )
-);
-
-builder.Services.AddAuthorization();
+builder.Services.AddDbContext<FullstackDBContext>(options =>
+        options.UseSqlServer(connection));
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -81,11 +46,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddHealthChecks();
 
-builder.Services.AddScoped<ICustomer, Customer>();
-builder.Services.AddScoped<IProduct, Product>();
-
-builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -115,6 +76,7 @@ builder.Services.AddSwaggerGen(c =>
 
 WebApplication app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -122,26 +84,19 @@ if (app.Environment.IsDevelopment())
     {
         c.SwaggerEndpoint("v1/swagger.json", "Backend API v1");
     });
-    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
 
-app.UseHealthChecks("/health");
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseMiddleware<Interceptor>();
 app.UseMiddleware<ExceptionHandler>();
+
+app.UseHealthChecks("/health");
+app.UseAuthorization();
 
 app.MapControllers();
 
 await app.RunAsync();
 
-/// <summary>
-/// Program.cs
-/// </summary>
+
 [ExcludeFromCodeCoverage]
-public static partial class Program
-{ }
+partial class Program { }

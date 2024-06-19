@@ -2,7 +2,6 @@
 using backend.api.Models;
 using backend.api.Models.Generated;
 using backend.api.Repository.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
@@ -13,7 +12,6 @@ namespace backend.api.Controllers
     /// Product API Controller
     /// </summary>
     /// <param name="dbProductModel"></param>
-    [Authorize]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("api/[controller]")]
     public class ProductController(IProduct dbProductModel) : ControllerBase, IProductController
