@@ -1,23 +1,23 @@
 ﻿using backend.api.Data.Generated;
+using backend.api.Models;
+using backend.api.Models.Generated;
 using backend.api.Repository.Interfaces;
-using System.Text.Json.Serialization;
 
-namespace backend.api.Models.Generated
+namespace backend.api.Repository
 {
-    public partial class Product : IProduct
+    public class ProductService : IProductService
     {
-        [JsonIgnore]
         public ErrorModel ErrorModel { get; set; }
 
         private readonly FullstackDBContext fullstackDBContext;
 
-        public Product()
+        public ProductService()
         {
             ErrorModel = new ErrorModel();
             this.fullstackDBContext ??= new FullstackDBContext();
         }
 
-        public Product(FullstackDBContext fullstackDBContext)
+        public ProductService(FullstackDBContext fullstackDBContext)
         {
             this.fullstackDBContext = fullstackDBContext;
             ErrorModel = new ErrorModel();
@@ -52,7 +52,6 @@ namespace backend.api.Models.Generated
             }
         }
 
-
         public bool EditProduct(Product product)
         {
             int result = 0;
@@ -65,7 +64,6 @@ namespace backend.api.Models.Generated
             }
             return result > 0;
         }
-
 
         public bool DeleteProduct(int id)
         {

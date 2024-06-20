@@ -3,22 +3,8 @@ using backend.api.Models.Generated;
 
 namespace backend.api.Repository.Interfaces
 {
-    public interface ICustomer
+    public interface ICustomerService
     {
-        int? Age { get; set; }
-
-        string Firstname { get; set; }
-
-        int Id { get; set; }
-
-        bool IsEmployed { get; set; }
-
-        string? Lastname { get; set; }
-
-        string? Middlename { get; set; }
-
-        string Sex { get; set; }
-
         ErrorModel ErrorModel { get; set; }
 
         void AddCustomer(Customer customer);

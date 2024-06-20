@@ -2,8 +2,8 @@ using backend.api.Auth;
 using backend.api.Data;
 using backend.api.Data.Generated;
 using backend.api.Middleware;
-using backend.api.Models.Generated;
 using backend.api.OpenApi;
+using backend.api.Repository;
 using backend.api.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,11 +26,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
 });
 
-
 builder.Services.AddDbContext<FullstackDBContext>(options => options.UseSqlServer(DbConnectionStringsBuilder.ConnectionBuilder(conn)));
 
-builder.Services.AddScoped<ICustomer, Customer>();
-builder.Services.AddScoped<IProduct, Product>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddHealthChecks();
 
@@ -68,6 +67,5 @@ app.MapControllers().RequireAuthorization();
 await app.RunAsync();
 
 [ExcludeFromCodeCoverage]
-
 internal static partial class Program
 { }

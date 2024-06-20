@@ -1,23 +1,23 @@
 ﻿using backend.api.Data.Generated;
+using backend.api.Models;
+using backend.api.Models.Generated;
 using backend.api.Repository.Interfaces;
-using System.Text.Json.Serialization;
 
-namespace backend.api.Models.Generated
+namespace backend.api.Repository
 {
-    public partial class Customer : ICustomer
+    public class CustomerService : ICustomerService
     {
-        [JsonIgnore]
         public ErrorModel ErrorModel { get; set; }
 
         private readonly FullstackDBContext fullstackDBContext;
 
-        public Customer()
+        public CustomerService()
         {
             ErrorModel = new ErrorModel();
             this.fullstackDBContext ??= new FullstackDBContext();
         }
 
-        public Customer(FullstackDBContext fullstackDBContext)
+        public CustomerService(FullstackDBContext fullstackDBContext)
         {
             this.fullstackDBContext = fullstackDBContext;
             ErrorModel = new ErrorModel();
@@ -64,7 +64,6 @@ namespace backend.api.Models.Generated
             }
 
             return result > 0;
-
         }
 
         public bool DeleteCustomer(int id)
