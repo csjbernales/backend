@@ -15,7 +15,7 @@ namespace backend.api.Middleware.Tests
             context.Request.Method = "GET";
             context.Request.Path = "/testpath";
 
-            Interceptor interceptor = new(fakeNext, fakeLogger);
+            LoggingHandler interceptor = new(fakeNext, fakeLogger);
 
             await interceptor.Invoke(context);
 
