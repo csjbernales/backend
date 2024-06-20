@@ -59,5 +59,5 @@ app.MapControllers().RequireAuthorization();
 await app.RunAsync();
 
 [ExcludeFromCodeCoverage]
-internal partial class Program
+internal static partial class Program
 { }

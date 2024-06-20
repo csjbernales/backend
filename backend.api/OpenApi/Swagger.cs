@@ -15,16 +15,16 @@ namespace backend.api.OpenApi
                     Title = "Backend API - V1",
                     Version = "v1",
                     Description = "A simple API for fullstack .net app",
-                    TermsOfService = new Uri(builder.Configuration.GetSection("SwaggerDoc")["TosUrl"]!),
+                    TermsOfService = new Uri(builder.Configuration["SwaggerDoc:TosUrl"]!),
                     Contact = new OpenApiContact
                     {
                         Name = "Jhon B",
-                        Email = "email"
+                        Email = builder.Configuration["email"]
                     },
                     License = new OpenApiLicense
                     {
                         Name = "Apache 2.0",
-                        Url = new Uri(builder.Configuration.GetSection("SwaggerDoc")["LicenseUrl"]!)
+                        Url = new Uri(builder.Configuration["SwaggerDoc:LicenseUrl"]!)
                     }
                 });
 
