@@ -4,21 +4,18 @@ using System.Net;
 
 namespace backend.api.Auth
 {
-    public class AuthorizationMiddlewareResultHandler : IAuthorizationMiddlewareResultHandler
+    public class AuthorizationMiddlewareResultHandler : IAuthorizationMiddlewareResultHandler //todo
     {
         private readonly Microsoft.AspNetCore.Authorization.Policy.AuthorizationMiddlewareResultHandler DefaultHandler = new();
 
-        public async Task HandleAsync(RequestDelegate next, HttpContext context,
-            AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
+        public async Task HandleAsync(RequestDelegate next, HttpContext context, AuthorizationPolicy policy, PolicyAuthorizationResult authorizeResult)
         {
             if (Show404ForForbiddenResult(authorizeResult))
             {
-                // Return a 404 to make it appear as if the resource does not exist.
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                 return;
             }
 
-            // Fallback to the default implementation.
             await DefaultHandler.HandleAsync(next, context, policy, authorizeResult);
         }
 
@@ -30,5 +27,6 @@ namespace backend.api.Auth
         }
     }
 
-    public class Show404Requirement : IAuthorizationRequirement { }
+    public class Show404Requirement : IAuthorizationRequirement
+    { }
 }
