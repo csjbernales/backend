@@ -30,7 +30,7 @@ namespace backend.api.Controllers.Tests
                 ];
 
             A.CallTo(() => customer.GetAllCustomers()).Returns(customers);
-            CustomerController sut = new(customer);
+            CustomersController sut = new(customer);
             IActionResult res = sut.GetAllCustomers();
 
             OkObjectResult? okresult = res as OkObjectResult;
@@ -59,7 +59,7 @@ namespace backend.api.Controllers.Tests
             };
 
             A.CallTo(() => this.customer.GetCustomerDetails(A<int>.Ignored)).Returns(customerInfo);
-            CustomerController sut = new(customer);
+            CustomersController sut = new(customer);
             IActionResult res = sut.GetCustomerDetails(1);
 
             OkObjectResult? okresult = res as OkObjectResult;
@@ -85,7 +85,7 @@ namespace backend.api.Controllers.Tests
                 Sex = "M"
             };
 
-            CustomerController sut = new(customer);
+            CustomersController sut = new(customer);
             IActionResult res = sut.AddCustomer(customerInfo);
 
             res.Should().NotBeNull();
@@ -105,7 +105,7 @@ namespace backend.api.Controllers.Tests
             };
 
             A.CallTo(() => this.customer.EditCustomer(A<Customer>.Ignored)).Returns(true);
-            CustomerController sut = new(customer);
+            CustomersController sut = new(customer);
             IActionResult res = sut.EditCustomer(customerInfo);
 
             NoContentResult? okresult = res as NoContentResult;
@@ -118,7 +118,7 @@ namespace backend.api.Controllers.Tests
         public void DeleteCustomerTest()
         {
             A.CallTo(() => this.customer.DeleteCustomer(A<int>.Ignored)).Returns(true);
-            CustomerController sut = new(customer);
+            CustomersController sut = new(customer);
             IActionResult res = sut.DeleteCustomer(1);
 
             ObjectResult statusCodeResult = Assert.IsType<ObjectResult>(res);

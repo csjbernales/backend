@@ -5,7 +5,7 @@ using PriorityAttribute = Xunit.Priority.PriorityAttribute;
 namespace backend.api.Models.Generated.Tests
 {
     [TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
-    public class ProductTests
+    public class ProductsTests
     {
         private DbContextOptions<FullstackDBContext> dbContextOptions = new();
 

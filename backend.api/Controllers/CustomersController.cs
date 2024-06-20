@@ -12,7 +12,7 @@ namespace backend.api.Controllers
     [Authorize]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("api/[controller]")]
-    public class CustomerController(ICustomer dbCustomerModel) : ControllerBase, ICustomerController
+    public class CustomersController(ICustomer dbCustomerModel) : ControllerBase, ICustomerController
     {
         [HttpGet]
         [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]

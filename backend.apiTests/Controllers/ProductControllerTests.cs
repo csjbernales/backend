@@ -28,7 +28,7 @@ namespace backend.api.Controllers.Tests
                 ];
 
             A.CallTo(() => product.GetAllProducts()).Returns(products);
-            ProductController sut = new(product);
+            ProductsController sut = new(product);
             IActionResult res = sut.GetAllProducts();
 
             OkObjectResult? okresult = res as OkObjectResult;
@@ -55,7 +55,7 @@ namespace backend.api.Controllers.Tests
             };
 
             A.CallTo(() => this.product.GetProductDetails(A<int>.Ignored)).Returns(productInfo);
-            ProductController sut = new(product);
+            ProductsController sut = new(product);
             IActionResult res = sut.GetProductDetails(1);
 
             OkObjectResult? okresult = res as OkObjectResult;
@@ -79,7 +79,7 @@ namespace backend.api.Controllers.Tests
                 Quantity = 10
             };
 
-            ProductController sut = new(product);
+            ProductsController sut = new(product);
             IActionResult res = sut.AddProduct(productInfo);
 
             res.Should().NotBeNull();
@@ -97,7 +97,7 @@ namespace backend.api.Controllers.Tests
             };
 
             A.CallTo(() => this.product.EditProduct(A<Product>.Ignored)).Returns(true);
-            ProductController sut = new(product);
+            ProductsController sut = new(product);
             IActionResult res = sut.EditProduct(productInfo);
 
             NoContentResult? okresult = res as NoContentResult;
@@ -110,7 +110,7 @@ namespace backend.api.Controllers.Tests
         public void DeleteProductTest()
         {
             A.CallTo(() => this.product.DeleteProduct(A<int>.Ignored)).Returns(true);
-            ProductController sut = new(product);
+            ProductsController sut = new(product);
             IActionResult res = sut.DeleteProduct(1);
 
             ObjectResult statusCodeResult = Assert.IsType<ObjectResult>(res);

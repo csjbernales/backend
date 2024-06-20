@@ -2,7 +2,7 @@
 
 namespace backend.api.Models.Generated.Tests
 {
-    public class CustomerTests
+    public class CustomersTests
     {
         private DbContextOptions<FullstackDBContext> dbContextOptions = new();
 
