@@ -5,16 +5,14 @@ namespace backend.api.Data.Generated;
 
 public partial class FullstackDBContext : DbContext
 {
-    public FullstackDBContext()
-    {
-    }
-
     public FullstackDBContext(DbContextOptions<FullstackDBContext> options)
-: base(options)
+        : base(options)
     {
     }
 
     public virtual DbSet<Cart> Carts { get; set; }
+
+    public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Customer> Customers { get; set; }
 
@@ -22,11 +20,21 @@ public partial class FullstackDBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<Customer>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK_Person");
 
             entity.Property(e => e.Sex).IsFixedLength();
+        });
+
+        modelBuilder.Entity<Product>(entity =>
+        {
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
         });
 
         OnModelCreatingPartial(modelBuilder);

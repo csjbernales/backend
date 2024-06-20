@@ -17,12 +17,21 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 IConfigurationSection conn = builder.Configuration.GetSection("ConnectionString");
 
-builder.Services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault);
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    options.JsonSerializerOptions.IncludeFields = true;
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    options.JsonSerializerOptions.IgnoreReadOnlyFields = true;
+    options.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
+});
+
+
+builder.Services.AddDbContext<FullstackDBContext>(options => options.UseSqlServer(DbConnectionStringsBuilder.ConnectionBuilder(conn)));
 
 builder.Services.AddScoped<ICustomer, Customer>();
 builder.Services.AddScoped<IProduct, Product>();
 
-builder.Services.AddDbContext<FullstackDBContext>(options => options.UseSqlServer(DbConnectionStringsBuilder.ConnectionBuilder(conn)));
 builder.Services.AddHealthChecks();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -59,5 +68,6 @@ app.MapControllers().RequireAuthorization();
 await app.RunAsync();
 
 [ExcludeFromCodeCoverage]
+
 internal static partial class Program
 { }

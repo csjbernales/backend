@@ -55,19 +55,16 @@ namespace backend.api.Models.Generated
         public bool EditCustomer(Customer customer)
         {
             int result = 0;
-            Customer? customerInfo = fullstackDBContext.Customers.FirstOrDefault(x => x.Id == customer.Id);
 
-            if (customerInfo != null)
-            {
-                fullstackDBContext.Customers.Update(customer);
-                result = fullstackDBContext.SaveChanges();
-            }
-            else
+            fullstackDBContext.Customers.Update(customer);
+            result = fullstackDBContext.SaveChanges();
+            if (result != 0)
             {
                 ErrorModel.ErrorMessage = $"Customer not found.";
             }
 
             return result > 0;
+
         }
 
         public bool DeleteCustomer(int id)

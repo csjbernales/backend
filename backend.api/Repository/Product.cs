@@ -17,19 +17,16 @@ namespace backend.api.Models.Generated
             this.fullstackDBContext ??= new FullstackDBContext();
         }
 
-
         public Product(FullstackDBContext fullstackDBContext)
         {
             this.fullstackDBContext = fullstackDBContext;
             ErrorModel = new ErrorModel();
         }
 
-
         public IList<Product> GetAllProducts()
         {
             return [.. fullstackDBContext.Products];
         }
-
 
         public Product? GetProductDetails(int id)
         {
@@ -59,18 +56,13 @@ namespace backend.api.Models.Generated
         public bool EditProduct(Product product)
         {
             int result = 0;
-            Product? customerInfo = fullstackDBContext.Products.FirstOrDefault(x => x.Id == product.Id);
+            fullstackDBContext.Products.Update(product);
+            result = fullstackDBContext.SaveChanges();
 
-            if (customerInfo != null)
+            if (result != 0)
             {
-                fullstackDBContext.Products.Update(customerInfo);
-                result = fullstackDBContext.SaveChanges();
+                ErrorModel.ErrorMessage = $"Product not found.";
             }
-            else
-            {
-                ErrorModel.ErrorMessage = $"Customer not found.";
-            }
-
             return result > 0;
         }
 
