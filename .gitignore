@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /backend.api/appsettings.Development.json
+backend.lutconfig
+.gitattributes
