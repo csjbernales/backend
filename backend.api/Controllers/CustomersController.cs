@@ -14,14 +14,14 @@ namespace backend.api.Controllers
     [Route("api/[controller]")]
     public class CustomersController(ICustomerService service) : ControllerBase, ICustomerController
     {
-        [HttpGet]
+        [HttpGet("GetAll")]
         [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]
         public IActionResult GetAllCustomers()
         {
             return Ok(service.GetAllCustomers());
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("Get/{id}")]
         [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         public IActionResult GetCustomerDetails([Required][Range(1, int.MaxValue)] int id)
@@ -35,22 +35,22 @@ namespace backend.api.Controllers
             return Ok(customerInfo);
         }
 
-        [HttpPut]
+        [HttpPut("Add")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult AddCustomer([Required][FromBody] Customer customer)
+        public async Task<IActionResult> AddCustomer([Required][FromBody] Customer customer)
         {
-            service.AddCustomer(customer);
+            await service.AddCustomer(customer);
             return Created();
         }
 
-        [HttpPatch]
+        [HttpPatch("Update")]
         [Consumes("application/json")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status406NotAcceptable)]
-        public IActionResult EditCustomer([Required][FromBody] Customer customer)
+        public async Task<IActionResult> EditCustomer([Required][FromBody] Customer customer)
         {
-            bool result = service.EditCustomer(customer);
+            bool result = await service.EditCustomer(customer);
             if (result)
             {
                 return NoContent();
@@ -59,12 +59,12 @@ namespace backend.api.Controllers
             return StatusCode(406, service.ErrorModel);
         }
 
-        [HttpDelete]
+        [HttpDelete("Delete")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status205ResetContent)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status409Conflict)]
-        public IActionResult DeleteCustomer([Required][Range(1, int.MaxValue)] int id)
+        public async Task<IActionResult> DeleteCustomer([Required][Range(1, int.MaxValue)] int id)
         {
-            bool result = service.DeleteCustomer(id);
+            bool result = await service.DeleteCustomer(id);
             if (result)
             {
                 return StatusCode(205, result);

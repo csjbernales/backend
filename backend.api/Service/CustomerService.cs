@@ -11,6 +11,7 @@ namespace backend.api.Service
 
         private readonly FullstackDBContext fullstackDBContext;
 
+
         public CustomerService()
         {
             ErrorModel = new ErrorModel();
@@ -39,12 +40,12 @@ namespace backend.api.Service
             return customer.FirstOrDefault();
         }
 
-        public void AddCustomer(Customer customer)
+        public async Task AddCustomer(Customer customer)
         {
             if (customer.Id == 0)
             {
-                fullstackDBContext.Customers.Add(customer);
-                fullstackDBContext.SaveChanges();
+                await fullstackDBContext.Customers.AddAsync(customer);
+                await fullstackDBContext.SaveChangesAsync();
             }
             else
             {
@@ -52,12 +53,10 @@ namespace backend.api.Service
             }
         }
 
-        public bool EditCustomer(Customer customer)
+        public async Task<bool> EditCustomer(Customer customer)
         {
-            int result = 0;
-
             fullstackDBContext.Customers.Update(customer);
-            result = fullstackDBContext.SaveChanges();
+            int result = await fullstackDBContext.SaveChangesAsync();
             if (result != 0)
             {
                 ErrorModel.ErrorMessage = $"Customer not found.";
@@ -66,7 +65,7 @@ namespace backend.api.Service
             return result > 0;
         }
 
-        public bool DeleteCustomer(int id)
+        public async Task<bool> DeleteCustomer(int id)
         {
             int result = 0;
             IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
@@ -74,7 +73,7 @@ namespace backend.api.Service
             if (customer.Any())
             {
                 fullstackDBContext.Customers.Remove(customer.FirstOrDefault()!);
-                result = fullstackDBContext.SaveChanges();
+                result = await fullstackDBContext.SaveChangesAsync();
             }
             else
             {

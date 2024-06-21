@@ -7,11 +7,11 @@ namespace backend.api.Service.Interfaces
     {
         ErrorModel ErrorModel { get; set; }
 
-        void AddCustomer(Customer customer);
+        Task AddCustomer(Customer customer);
 
-        bool DeleteCustomer(int id);
+        Task<bool> DeleteCustomer(int id);
 
-        bool EditCustomer(Customer customer);
+        Task<bool> EditCustomer(Customer customer);
 
         IList<Customer> GetAllCustomers();
 

@@ -30,5 +30,9 @@ The `backend.api` project serves as the backend for your application. It interac
 
 - **Integrate with Pocketbase:** Call the necessary APIs or services from Pocketbase.
 - **UI Development:** Create a user-friendly frontend for your application.
-- **Authentication Policy:** Define and enforce authentication policies for different user roles.
-- **Documentation Refinement:** Further enhance this `readme.md` document by providing additional details and context.
+
+
+
+**.Net 9**
+- openapi https://www.youtube.com/watch?v=8xEkVmqlr4I
+- quartz demo 

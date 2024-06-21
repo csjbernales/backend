@@ -1,15 +1,16 @@
 ﻿using backend.api.Models.Generated;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace backend.api.Controllers.Interfaces
 {
     public interface ICustomerController
     {
-        IActionResult AddCustomer([FromBody] Customer customer);
+        Task<IActionResult> AddCustomer([FromBody, Required] Customer customer);
 
-        IActionResult DeleteCustomer(int id);
+        Task<IActionResult> DeleteCustomer(int id);
 
-        IActionResult EditCustomer([FromBody] Customer customer);
+        Task<IActionResult> EditCustomer([FromBody, Required] Customer customer);
 
         IActionResult GetAllCustomers();
 

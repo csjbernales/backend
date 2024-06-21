@@ -39,12 +39,12 @@ namespace backend.api.Service
             return product.FirstOrDefault();
         }
 
-        public void AddProduct(Product product)
+        public async Task AddProduct(Product product)
         {
             if (product.Id == 0)
             {
-                fullstackDBContext.Products.Add(product);
-                fullstackDBContext.SaveChanges();
+                await fullstackDBContext.Products.AddAsync(product);
+                await fullstackDBContext.SaveChangesAsync();
             }
             else
             {
@@ -52,11 +52,10 @@ namespace backend.api.Service
             }
         }
 
-        public bool EditProduct(Product product)
+        public async Task<bool> EditProduct(Product product)
         {
-            int result = 0;
             fullstackDBContext.Products.Update(product);
-            result = fullstackDBContext.SaveChanges();
+            int result = await fullstackDBContext.SaveChangesAsync();
 
             if (result != 0)
             {
@@ -65,7 +64,7 @@ namespace backend.api.Service
             return result > 0;
         }
 
-        public bool DeleteProduct(int id)
+        public async Task<bool> DeleteProduct(int id)
         {
             int result = 0;
             IQueryable<Product> product = fullstackDBContext.Products.Where(x => x.Id == id);
@@ -73,7 +72,7 @@ namespace backend.api.Service
             if (product.Any())
             {
                 fullstackDBContext.Products.Remove(product.FirstOrDefault()!);
-                result = fullstackDBContext.SaveChanges();
+                result = await fullstackDBContext.SaveChangesAsync();
             }
             else
             {
