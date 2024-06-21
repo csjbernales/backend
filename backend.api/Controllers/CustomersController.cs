@@ -1,7 +1,7 @@
 ﻿using backend.api.Controllers.Interfaces;
 using backend.api.Models;
 using backend.api.Models.Generated;
-using backend.api.Repository.Interfaces;
+using backend.api.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;

@@ -1,7 +1,7 @@
 ﻿using backend.api.Models;
 using backend.api.Models.Generated;
 
-namespace backend.api.Repository.Interfaces
+namespace backend.api.Service.Interfaces
 {
     public interface ICustomerService
     {

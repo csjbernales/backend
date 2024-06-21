@@ -1,9 +1,9 @@
 ﻿using backend.api.Data.Generated;
 using backend.api.Models;
 using backend.api.Models.Generated;
-using backend.api.Repository.Interfaces;
+using backend.api.Service.Interfaces;
 
-namespace backend.api.Repository
+namespace backend.api.Service
 {
     public class CustomerService : ICustomerService
     {
@@ -14,7 +14,7 @@ namespace backend.api.Repository
         public CustomerService()
         {
             ErrorModel = new ErrorModel();
-            this.fullstackDBContext ??= new FullstackDBContext();
+            fullstackDBContext ??= new FullstackDBContext();
         }
 
         public CustomerService(FullstackDBContext fullstackDBContext)
