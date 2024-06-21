@@ -1,28 +1,34 @@
 # backend.api
 
-Run database scripts from db/ssms
+## Overview
 
-Run this command to create a new EF models that matches sql database
+The `backend.api` project serves as the backend for your application. It interacts with a SQL database and provides essential functionality for your application's frontend.
 
-delete first the Data/Generated and Models/Generated folders before running the cli command below
+## Getting Started
 
-Scaffold-DbContext -Project backend.api 'Data Source=PREDATOHELIOS16;Database=FullstackDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring -ContextDir Data/Generated -OutputDir Models/Generated -DataAnnotation -ContextNamespace backend.api.Data.Generated -Namespace backend.api.Models.Generated -verbose -UseDatabaseNames -force
+1. **Database Setup:**
+   - Execute the necessary database scripts using SSMS (SQL Server Management Studio).
+   - Ensure that your database connection string is correctly configured in your application.
 
--force is for force update only. use with caution
+2. **Entity Framework (EF) Models:**
+   - To create EF models that match your SQL database, run the following command:
+     ```
+     Scaffold-DbContext -Project backend.api 'Data Source=PREDATOHELIOS16;Database=FullstackDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring -ContextDir Data/Generated -OutputDir Models/Generated -DataAnnotation -ContextNamespace backend.api.Data.Generated -Namespace backend.api.Models.Generated -verbose -UseDatabaseNames -force
+     ```
+     Replace the values as necessary.
 
+3. **Authentication and Authorization:**
+   - To add authorization to your authentication flow:
+     - In `Program.cs`, after adding authentication, include the following code snippet:
+       ```csharp
+       // builder.Services.AddAuthorizationBuilder().AddPolicy("read:messages", policy =>
+       //     policy.Requirements.Add(new HasScopeRequirement("read:messages", builder.Configuration["Auth0:Domain"]!)));
+       ```
+     - Customize the policy name and scope as needed.
 
-Change the values as needed
+## To-Do List
 
-Add authorization to authentication
-add after addauthentication() in Program.cs
-
-//builder.Services.AddAuthorizationBuilder().AddPolicy("read:messages", policy =>
-//    policy.Requirements.Add(new HasScopeRequirement("read:messages", builder.Configuration["Auth0:Domain"]!)));
-____________________________________________________________________________________________
-
-
-todo:
-Call on Pocketbase
-
-UI
-auth policy
+- **Integrate with Pocketbase:** Call the necessary APIs or services from Pocketbase.
+- **UI Development:** Create a user-friendly frontend for your application.
+- **Authentication Policy:** Define and enforce authentication policies for different user roles.
+- **Documentation Refinement:** Further enhance this `readme.md` document by providing additional details and context.
