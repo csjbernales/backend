@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.api.Models.Generated;
 
-[Keyless]
 public partial class Product
 {
+    [Key]
     public int Id { get; set; }
 
     [StringLength(50)]

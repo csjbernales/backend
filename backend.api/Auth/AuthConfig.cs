@@ -8,9 +8,9 @@ namespace backend.api.Auth
 {
     public static class AuthConfig
     {
-        public static void AuthOptions(WebApplicationBuilder builder)
+        public static void AuthOptions(WebApplicationBuilder builder, IEnvironmentWrapper environmentWrapper)
         {
-            if (builder.Environment.IsDevelopment())
+            if (environmentWrapper.IsDevelopment())
             {
                 builder.Services.AddAuthentication("Development").AddScheme<AuthenticationSchemeOptions, DevelopmentAuthenticationHandler>("Development", options => { });
             }

@@ -5,7 +5,7 @@ namespace backend.api.OpenApi
 {
     public static class Swagger
     {
-        public static Action<SwaggerGenOptions> SwaggerOptions(WebApplicationBuilder builder)
+        public static Action<SwaggerGenOptions> SwaggerOptions(WebApplicationBuilder builder, EnvironmentWrapper environmentWrapper)
         {
             return c =>
             {
@@ -28,7 +28,7 @@ namespace backend.api.OpenApi
                     }
                 });
 
-                if (!builder.Environment.IsDevelopment())
+                if (!environmentWrapper.IsDevelopment())
                 {
                     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                     {

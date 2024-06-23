@@ -1,3 +1,4 @@
+using backend.api;
 using backend.api.Auth;
 using backend.api.Data;
 using backend.api.Data.Generated;
@@ -12,6 +13,7 @@ using System.Text.Json.Serialization;
 
 [assembly: ApiController]
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+EnvironmentWrapper environmentWrapper = new(builder);
 
 //Add services to the container.
 
@@ -28,16 +30,16 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddDbContext<FullstackDBContext>(options => options.UseSqlServer(DbConnectionStringsBuilder.ConnectionBuilder(conn)));
 
-builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICustomerService, CustomersService>();
+builder.Services.AddScoped<IProductService, ProductsService>();
 
 builder.Services.AddHealthChecks();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen(Swagger.SwaggerOptions(builder));
+builder.Services.AddSwaggerGen(Swagger.SwaggerOptions(builder, environmentWrapper));
 
-AuthConfig.AuthOptions(builder);
+AuthConfig.AuthOptions(builder, environmentWrapper);
 
 //--------------------------------------------------------------------------------------------------
 

@@ -34,11 +34,6 @@ public partial class FullstackDBContext : DbContext
             entity.Property(e => e.Sex).IsFixedLength();
         });
 
-        modelBuilder.Entity<Product>(entity =>
-        {
-            entity.Property(e => e.Id).ValueGeneratedOnAdd();
-        });
-
         OnModelCreatingPartial(modelBuilder);
     }
 

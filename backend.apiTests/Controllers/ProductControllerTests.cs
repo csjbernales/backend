@@ -1,15 +1,15 @@
 ﻿using backend.api.Models.Generated;
-using backend.api.Repository.Interfaces;
+using backend.api.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.api.Controllers.Tests
 {
     public class ProductControllerTests
     {
-        private readonly IProduct product;
+        private readonly IProductService product;
         public ProductControllerTests()
         {
-            product = A.Fake<IProduct>();
+            product = A.Fake<IProductService>();
         }
 
         [Fact()]
@@ -69,7 +69,7 @@ namespace backend.api.Controllers.Tests
         }
 
         [Fact()]
-        public void AddProductTest()
+        public async Task AddProductTest()
         {
             Product productInfo = new()
             {
@@ -80,13 +80,13 @@ namespace backend.api.Controllers.Tests
             };
 
             ProductsController sut = new(product);
-            IActionResult res = sut.AddProduct(productInfo);
+            IActionResult res = await sut.AddProduct(productInfo);
 
             res.Should().NotBeNull();
         }
 
         [Fact()]
-        public void EditProductTest()
+        public async Task EditProductTest()
         {
             Product productInfo = new()
             {
@@ -98,7 +98,7 @@ namespace backend.api.Controllers.Tests
 
             A.CallTo(() => this.product.EditProduct(A<Product>.Ignored)).Returns(true);
             ProductsController sut = new(product);
-            IActionResult res = sut.EditProduct(productInfo);
+            IActionResult res = await sut.EditProduct(productInfo);
 
             NoContentResult? okresult = res as NoContentResult;
 
@@ -107,11 +107,11 @@ namespace backend.api.Controllers.Tests
         }
 
         [Fact()]
-        public void DeleteProductTest()
+        public async Task DeleteProductTest()
         {
             A.CallTo(() => this.product.DeleteProduct(A<int>.Ignored)).Returns(true);
             ProductsController sut = new(product);
-            IActionResult res = sut.DeleteProduct(1);
+            IActionResult res = await sut.DeleteProduct(1);
 
             ObjectResult statusCodeResult = Assert.IsType<ObjectResult>(res);
             Assert.Equal(205, statusCodeResult.StatusCode);

@@ -1,15 +1,15 @@
 ﻿using backend.api.Models.Generated;
-using backend.api.Repository.Interfaces;
+using backend.api.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend.api.Controllers.Tests
 {
     public class CustomerControllerTests
     {
-        private readonly ICustomer customer;
+        private readonly ICustomerService customer;
         public CustomerControllerTests()
         {
-            customer = A.Fake<ICustomer>();
+            customer = A.Fake<ICustomerService>();
         }
 
         [Fact()]
@@ -73,7 +73,7 @@ namespace backend.api.Controllers.Tests
         }
 
         [Fact()]
-        public void AddCustomerTest()
+        public async Task AddCustomerTest()
         {
             Customer customerInfo = new()
             {
@@ -86,13 +86,14 @@ namespace backend.api.Controllers.Tests
             };
 
             CustomersController sut = new(customer);
-            IActionResult res = sut.AddCustomer(customerInfo);
+            IActionResult res = await sut.AddCustomer(customerInfo);
 
-            res.Should().NotBeNull();
+            ObjectResult? test = res as ObjectResult;
+            test!.Should().NotBeNull();
         }
 
         [Fact()]
-        public void EditCustomerTest()
+        public async Task EditCustomerTest()
         {
             Customer customerInfo = new()
             {
@@ -106,7 +107,7 @@ namespace backend.api.Controllers.Tests
 
             A.CallTo(() => this.customer.EditCustomer(A<Customer>.Ignored)).Returns(true);
             CustomersController sut = new(customer);
-            IActionResult res = sut.EditCustomer(customerInfo);
+            IActionResult res = await sut.EditCustomer(customerInfo);
 
             NoContentResult? okresult = res as NoContentResult;
 
@@ -115,11 +116,11 @@ namespace backend.api.Controllers.Tests
         }
 
         [Fact()]
-        public void DeleteCustomerTest()
+        public async Task DeleteCustomerTest()
         {
             A.CallTo(() => this.customer.DeleteCustomer(A<int>.Ignored)).Returns(true);
             CustomersController sut = new(customer);
-            IActionResult res = sut.DeleteCustomer(1);
+            IActionResult res = await sut.DeleteCustomer(1);
 
             ObjectResult statusCodeResult = Assert.IsType<ObjectResult>(res);
             Assert.Equal(205, statusCodeResult.StatusCode);

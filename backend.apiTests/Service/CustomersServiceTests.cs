@@ -1,12 +1,17 @@
 ﻿using backend.api.Data.Generated;
+using backend.api.Service;
+using Xunit.Priority;
+using PriorityAttribute = Xunit.Priority.PriorityAttribute;
 
 namespace backend.api.Models.Generated.Tests
 {
-    public class CustomersTests
+    [TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
+    public class CustomersServiceTests
     {
         private DbContextOptions<FullstackDBContext> dbContextOptions = new();
 
         [Fact()]
+        [Priority(1)]
         public void A_GetAllCustomersTest()
         {
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
@@ -24,7 +29,7 @@ namespace backend.api.Models.Generated.Tests
                 });
             fullstackDBContext.SaveChanges();
 
-            Customer sut = new(fullstackDBContext);
+            CustomersService sut = new(fullstackDBContext);
 
             IList<Customer> allCustomers = sut.GetAllCustomers();
 
@@ -32,6 +37,7 @@ namespace backend.api.Models.Generated.Tests
         }
 
         [Fact()]
+        [Priority(2)]
         public void B_GetCustomerDetailsTest()
         {
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
@@ -49,7 +55,7 @@ namespace backend.api.Models.Generated.Tests
             fullstackDBContext.Add(cust);
             fullstackDBContext.SaveChanges();
 
-            Customer sut = new(fullstackDBContext);
+            CustomersService sut = new(fullstackDBContext);
 
             Customer? allCustomers = sut.GetCustomerDetails(2);
 
@@ -57,7 +63,8 @@ namespace backend.api.Models.Generated.Tests
         }
 
         [Fact()]
-        public void C_AddCustomerTest()
+        [Priority(3)]
+        public async Task C_AddCustomerTest()
         {
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
@@ -71,19 +78,20 @@ namespace backend.api.Models.Generated.Tests
                 Sex = "F",
                 IsEmployed = true
             };
-            fullstackDBContext.Customers.Add(cust);
-            fullstackDBContext.SaveChanges();
+            await fullstackDBContext.Customers.AddAsync(cust);
+            await fullstackDBContext.SaveChangesAsync();
 
-            Customer sut = new(fullstackDBContext);
+            CustomersService sut = new(fullstackDBContext);
 
-            sut.AddCustomer(cust);
+            await sut.AddCustomer(cust);
             Customer? allCustomers = sut.GetCustomerDetails(3);
 
             allCustomers.Should().BeSameAs(cust);
         }
 
         [Fact()]
-        public void D_EditCustomerTest()
+        [Priority(4)]
+        public async Task D_EditCustomerTest()
         {
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
@@ -97,22 +105,24 @@ namespace backend.api.Models.Generated.Tests
                 Sex = "F",
                 IsEmployed = true
             };
-            fullstackDBContext.Add(cust);
-            fullstackDBContext.SaveChanges();
+            await fullstackDBContext.AddAsync(cust);
+            await fullstackDBContext.SaveChangesAsync();
 
-            Customer? updatedCust = fullstackDBContext.Customers.Where(x => x.Id == cust.Id).FirstOrDefault();
+            Customer? updatedCust = fullstackDBContext.Customers.Where(x => x.Id == cust.Id).FirstOrDefaultAsync().Result;
+
 
             updatedCust!.Age = 26;
 
-            Customer sut = new(fullstackDBContext);
+            CustomersService sut = new(fullstackDBContext);
 
-            bool allCustomers = sut.EditCustomer(updatedCust);
+            bool allCustomers = await sut.EditCustomer(updatedCust);
 
             allCustomers.Should().BeTrue();
         }
 
         [Fact()]
-        public void E_DeleteCustomerTest()
+        [Priority(5)]
+        public async Task E_DeleteCustomerTest()
         {
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
@@ -126,12 +136,12 @@ namespace backend.api.Models.Generated.Tests
                 Sex = "F",
                 IsEmployed = true
             };
-            fullstackDBContext.Customers.Add(cust);
-            fullstackDBContext.SaveChanges();
+            await fullstackDBContext.Customers.AddAsync(cust);
+            await fullstackDBContext.SaveChangesAsync();
 
-            Customer sut = new(fullstackDBContext);
+            CustomersService sut = new(fullstackDBContext);
 
-            bool del = sut.DeleteCustomer(5);
+            bool del = await sut.DeleteCustomer(5);
 
             Customer? allCustomers = sut.GetCustomerDetails(5);
             allCustomers.Should().Be(null);

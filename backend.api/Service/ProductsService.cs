@@ -5,19 +5,19 @@ using backend.api.Service.Interfaces;
 
 namespace backend.api.Service
 {
-    public class ProductService : IProductService
+    public class ProductsService : IProductService
     {
         public ErrorModel ErrorModel { get; set; }
 
         private readonly FullstackDBContext fullstackDBContext;
 
-        public ProductService()
+        public ProductsService()
         {
             ErrorModel = new ErrorModel();
             fullstackDBContext ??= new FullstackDBContext();
         }
 
-        public ProductService(FullstackDBContext fullstackDBContext)
+        public ProductsService(FullstackDBContext fullstackDBContext)
         {
             this.fullstackDBContext = fullstackDBContext;
             ErrorModel = new ErrorModel();

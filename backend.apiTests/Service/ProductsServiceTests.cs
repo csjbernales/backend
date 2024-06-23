@@ -1,11 +1,12 @@
 ﻿using backend.api.Data.Generated;
+using backend.api.Service;
 using Xunit.Priority;
 using PriorityAttribute = Xunit.Priority.PriorityAttribute;
 
 namespace backend.api.Models.Generated.Tests
 {
     [TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
-    public class ProductsTests
+    public class ProductsServiceTests
     {
         private DbContextOptions<FullstackDBContext> dbContextOptions = new();
 
@@ -25,7 +26,7 @@ namespace backend.api.Models.Generated.Tests
                 });
             fullstackDBContext.SaveChanges();
 
-            Product sut = new(fullstackDBContext);
+            ProductsService sut = new(fullstackDBContext);
 
             IList<Product> allProducts = sut.GetAllProducts();
 
@@ -47,7 +48,7 @@ namespace backend.api.Models.Generated.Tests
             fullstackDBContext.Add(cust);
             fullstackDBContext.SaveChanges();
 
-            Product sut = new(fullstackDBContext);
+            ProductsService sut = new(fullstackDBContext);
 
             Product? allProducts = sut.GetProductDetails(2);
 
@@ -55,7 +56,7 @@ namespace backend.api.Models.Generated.Tests
         }
 
         [Fact()]
-        public void C_AddProductTest()
+        public async Task C_AddProductTest()
         {
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
@@ -66,19 +67,19 @@ namespace backend.api.Models.Generated.Tests
                 Category = "Food",
                 Quantity = 10
             };
-            fullstackDBContext.Products.Add(cust);
-            fullstackDBContext.SaveChanges();
+            await fullstackDBContext.Products.AddAsync(cust);
+            await fullstackDBContext.SaveChangesAsync();
 
-            Product sut = new(fullstackDBContext);
+            ProductsService sut = new(fullstackDBContext);
 
-            sut.AddProduct(cust);
+            await sut.AddProduct(cust);
             Product? allProducts = sut.GetProductDetails(3);
 
             allProducts.Should().BeSameAs(cust);
         }
 
         [Fact()]
-        public void D_EditProductTest()
+        public async Task D_EditProductTest()
         {
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
@@ -89,22 +90,22 @@ namespace backend.api.Models.Generated.Tests
                 Category = "Food",
                 Quantity = 10
             };
-            fullstackDBContext.Add(cust);
-            fullstackDBContext.SaveChanges();
+            await fullstackDBContext.AddAsync(cust);
+            await fullstackDBContext.SaveChangesAsync();
 
-            Product? updatedCust = fullstackDBContext.Products.Where(x => x.Id == cust.Id).FirstOrDefault();
+            Product? updatedCust = fullstackDBContext.Products.Where(x => x.Id == cust.Id).FirstOrDefaultAsync().Result;
 
             updatedCust!.Quantity = 26;
 
-            Product sut = new(fullstackDBContext);
+            ProductsService sut = new(fullstackDBContext);
 
-            bool allProducts = sut.EditProduct(updatedCust);
+            Task<bool> allProducts = sut.EditProduct(updatedCust);
 
-            allProducts.Should().BeTrue();
+            allProducts.Result.Should().BeTrue();
         }
 
         [Fact()]
-        public void E_DeleteProductTest()
+        public async Task E_DeleteProductTest()
         {
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
@@ -115,12 +116,12 @@ namespace backend.api.Models.Generated.Tests
                 Category = "Food",
                 Quantity = 10
             };
-            fullstackDBContext.Products.Add(cust);
-            fullstackDBContext.SaveChanges();
+            await fullstackDBContext.Products.AddAsync(cust);
+            await fullstackDBContext.SaveChangesAsync();
 
-            Product sut = new(fullstackDBContext);
+            ProductsService sut = new(fullstackDBContext);
 
-            bool del = sut.DeleteProduct(5);
+            bool del = await sut.DeleteProduct(5);
 
             Product? allProducts = sut.GetProductDetails(5);
             allProducts.Should().Be(null);
