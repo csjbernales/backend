@@ -30,7 +30,6 @@ The `backend.api` project serves as the backend for your application. It interac
 
 - **Integrate with Pocketbase:** Call the necessary APIs or services from Pocketbase.
 - **UI Development:** Create a user-friendly frontend for your application.
-- **Mapper** Map objects
 
 
 **.Net 9**
