@@ -1,10 +1,10 @@
 using backend.api.Auth;
 using backend.api.Configurations;
-using backend.api.Data;
 using backend.api.Data.Generated;
 using backend.api.Middleware;
 using backend.api.Service;
 using backend.api.Service.Interfaces;
+using backend.data.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;

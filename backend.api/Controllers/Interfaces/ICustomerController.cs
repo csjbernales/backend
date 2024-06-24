@@ -1,4 +1,4 @@
-﻿using backend.api.Models.Generated;
+﻿using backend.data.Models.Generated;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 

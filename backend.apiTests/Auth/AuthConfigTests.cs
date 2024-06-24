@@ -1,7 +1,8 @@
-﻿using backend.api.Configurations;
+﻿using backend.api.Auth;
+using backend.api.Configurations;
 using Microsoft.AspNetCore.Builder;
 
-namespace backend.api.Auth.Tests
+namespace backend.api.Tests.Auth
 {
     public class AuthConfigTests
     {

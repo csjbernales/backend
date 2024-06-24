@@ -1,8 +1,9 @@
-﻿using backend.api.Models;
+﻿using backend.api.Middleware;
+using backend.data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace backend.api.Middleware.Tests
+namespace backend.api.Tests.Middleware
 {
     public class ExceptionHandlerTests
     {

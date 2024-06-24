@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace backend.api.Models
+namespace backend.data.Models
 {
     [NotMapped]
     public class ErrorModel

@@ -5,5 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Usage", "xUnit1031:Do not use blocking task operations in test method", Justification = "<Pending>", Scope = "member", Target = "~M:backend.api.Models.Generated.Tests.ProductsServiceTests.D_EditProductTest~System.Threading.Tasks.Task")]
-[assembly: SuppressMessage("Usage", "xUnit1031:Do not use blocking task operations in test method", Justification = "<Pending>", Scope = "member", Target = "~M:backend.api.Models.Generated.Tests.CustomersServiceTests.D_EditCustomerTest~System.Threading.Tasks.Task")]
+[assembly: SuppressMessage("Usage", "xUnit1031:Do not use blocking task operations in test method", Justification = "<Pending>", Scope = "member", Target = "~M:backend.api.Tests.Service.CustomersServiceTests.D_EditCustomerTest~System.Threading.Tasks.Task")]

@@ -13,7 +13,7 @@ The `backend.api` project serves as the backend for your application. It interac
 2. **Entity Framework (EF) Models:**
    - To create EF models that match your SQL database, run the following command:
      ```
-     Scaffold-DbContext -Project backend.api 'Data Source=PREDATOHELIOS16;Database=FullstackDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring -ContextDir Data/Generated -OutputDir Models/Generated -DataAnnotation -ContextNamespace backend.api.Data.Generated -Namespace backend.api.Models.Generated -verbose -UseDatabaseNames -force
+     Scaffold-DbContext -Project backend.data 'Data Source=PREDATOHELIOS16;Database=FullstackDB;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring -ContextDir Data/Generated -OutputDir Models/Generated -DataAnnotation -ContextNamespace backend.data.Data.Generated -Namespace backend.data.Models.Generated -verbose -UseDatabaseNames -force
      ```
      Replace the values as necessary.
 

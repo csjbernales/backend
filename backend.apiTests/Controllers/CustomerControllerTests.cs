@@ -1,9 +1,10 @@
-﻿using backend.api.Models.dto;
-using backend.api.Models.Generated;
+﻿using backend.api.Controllers;
 using backend.api.Service.Interfaces;
+using backend.data.Models.Dto;
+using backend.data.Models.Generated;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.api.Controllers.Tests
+namespace backend.api.Tests.Controllers
 {
     public class CustomerControllerTests
     {
@@ -43,7 +44,7 @@ namespace backend.api.Controllers.Tests
         {
             CustomersDto customerInfo = new(1, "test", "test", "test", 1, "m", true);
 
-            A.CallTo(() => this.customer.GetCustomerDetails(A<int>.Ignored)).Returns(customerInfo);
+            A.CallTo(() => customer.GetCustomerDetails(A<int>.Ignored)).Returns(customerInfo);
             CustomersController sut = new(customer);
             IActionResult res = sut.GetCustomerDetails(1);
 
@@ -90,7 +91,7 @@ namespace backend.api.Controllers.Tests
                 Sex = "M"
             };
 
-            A.CallTo(() => this.customer.EditCustomer(A<Customer>.Ignored)).Returns(true);
+            A.CallTo(() => customer.EditCustomer(A<Customer>.Ignored)).Returns(true);
             CustomersController sut = new(customer);
             IActionResult res = await sut.EditCustomer(customerInfo);
 
@@ -103,7 +104,7 @@ namespace backend.api.Controllers.Tests
         [Fact()]
         public async Task DeleteCustomerTest()
         {
-            A.CallTo(() => this.customer.DeleteCustomer(A<int>.Ignored)).Returns(true);
+            A.CallTo(() => customer.DeleteCustomer(A<int>.Ignored)).Returns(true);
             CustomersController sut = new(customer);
             IActionResult res = await sut.DeleteCustomer(1);
 

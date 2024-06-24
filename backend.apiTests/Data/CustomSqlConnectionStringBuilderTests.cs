@@ -1,4 +1,4 @@
-﻿namespace backend.api.Data.Tests
+﻿namespace backend.api.Tests.Data
 {
     public class CustomSqlConnectionStringBuilderTests
     {

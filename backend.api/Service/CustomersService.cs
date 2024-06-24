@@ -1,8 +1,8 @@
-﻿using backend.api.Data.Generated;
-using backend.api.Models;
-using backend.api.Models.dto;
-using backend.api.Models.Generated;
-using backend.api.Service.Interfaces;
+﻿using backend.api.Service.Interfaces;
+using backend.data.Data.Generated;
+using backend.data.Models;
+using backend.data.Models.Dto;
+using backend.data.Models.Generated;
 using Mapster;
 
 namespace backend.api.Service

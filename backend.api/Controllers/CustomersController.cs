@@ -1,8 +1,8 @@
 ﻿using backend.api.Controllers.Interfaces;
-using backend.api.Models;
-using backend.api.Models.dto;
-using backend.api.Models.Generated;
 using backend.api.Service.Interfaces;
+using backend.data.Models;
+using backend.data.Models.Dto;
+using backend.data.Models.Generated;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;

@@ -1,36 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using backend.data.Models.Generated;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace backend.data.Data;
+namespace backend.data.Data.Generated;
 
-public partial class FullstackdbContext : DbContext
+public partial class FullstackDBContext : DbContext
 {
-    public FullstackdbContext()
+    public FullstackDBContext()
     {
     }
-
-    public FullstackdbContext(DbContextOptions<FullstackdbContext> options)
-        : base(options)
-    {
-    }
-
-    public virtual DbSet<Person> People { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Name=ConnectionStrings:fullstackdb");
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Person>(entity =>
-        {
-            entity.Property(e => e.Age).IsFixedLength();
-            entity.Property(e => e.Sex).IsFixedLength();
-        });
-
-        OnModelCreatingPartial(modelBuilder);
-    }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

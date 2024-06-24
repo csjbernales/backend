@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using backend.api.Models.Generated;
+using backend.data.Models.Generated;
 
-namespace backend.api.Data.Generated;
+namespace backend.data.Data.Generated;
 
 public partial class FullstackDBContext : DbContext
 {

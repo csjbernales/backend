@@ -1,4 +1,4 @@
-﻿using backend.api.Models;
+﻿using backend.data.Models;
 
 namespace backend.api.Middleware
 {

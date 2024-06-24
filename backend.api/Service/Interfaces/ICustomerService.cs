@@ -1,6 +1,6 @@
-﻿using backend.api.Models;
-using backend.api.Models.dto;
-using backend.api.Models.Generated;
+﻿using backend.data.Models;
+using backend.data.Models.Dto;
+using backend.data.Models.Generated;
 
 namespace backend.api.Service.Interfaces
 {

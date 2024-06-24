@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace backend.data.Models.Generated;
 
-[Table("Person")]
-public partial class Person
+[Table("Customer")]
+public partial class Customer
 {
     [Key]
     public int Id { get; set; }
@@ -24,8 +24,7 @@ public partial class Person
     [Unicode(false)]
     public string? Lastname { get; set; }
 
-    [StringLength(3)]
-    public string Age { get; set; } = null!;
+    public int? Age { get; set; }
 
     [StringLength(1)]
     [Unicode(false)]

@@ -1,7 +1,7 @@
 USE [master]
 GO
 
-/****** Object:  Database [FullstackDB]    Script Date: 6/16/2024 12:19:13 PM ******/
+/****** Object:  Database [FullstackDB]    Script Date: 6/25/2024 12:44:16 AM ******/
 CREATE DATABASE [FullstackDB]
  CONTAINMENT = NONE
  ON  PRIMARY 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace backend.api.Data
+namespace backend.data.Data
 {
     public static class DbConnectionStringsBuilder
     {
