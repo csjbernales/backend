@@ -1,13 +1,13 @@
 # For more info on HTTP files go to https://aka.ms/vs/httpfile
-GET https://localhost:7001/api/Products/GetAll
+GET https://localhost:7001/api/Customers/GetAll
 
 ###
 
-GET https://localhost:7001/api/Products/Get/1
+GET https://localhost:7001/api/Customers/Get/1
 
 ###
 
-POST https://localhost:7001/api/Products/Add
+POST https://localhost:7001/api/Customers/Add
 Content-Type: application/json
 
 {
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 ###
 
-PATCH https://localhost:7001/api/Products/Update
+PATCH https://localhost:7001/api/Customers/Update
 Content-Type: application/json
 
 {
@@ -30,4 +30,4 @@ Content-Type: application/json
 
 ###
 
-DELETE https://localhost:7001/api/Products/Delete?id=123
+DELETE https://localhost:7001/api/Customers/Delete?id=123
