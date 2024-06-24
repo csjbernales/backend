@@ -1,9 +1,8 @@
-using backend.api;
 using backend.api.Auth;
+using backend.api.Configurations;
 using backend.api.Data;
 using backend.api.Data.Generated;
 using backend.api.Middleware;
-using backend.api.OpenApi;
 using backend.api.Service;
 using backend.api.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;

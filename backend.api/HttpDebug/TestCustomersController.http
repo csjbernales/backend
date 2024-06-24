@@ -1,0 +1,33 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+GET https://localhost:7001/api/Products/GetAll
+
+###
+
+GET https://localhost:7001/api/Products/Get/1
+
+###
+
+POST https://localhost:7001/api/Products/Add
+Content-Type: application/json
+
+{
+    "Name": "Item name",
+    "Category": "Food",
+    "Quantity": 10
+}
+
+###
+
+PATCH https://localhost:7001/api/Products/Update
+Content-Type: application/json
+
+{
+    "Id": 1,
+    "Name": "Item name",
+    "Category": "Food",
+    "Quantity": 10
+}
+
+###
+
+DELETE https://localhost:7001/api/Products/Delete?id=123

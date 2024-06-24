@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace backend.api.OpenApi
+namespace backend.api.Configurations
 {
     public static class Swagger
     {

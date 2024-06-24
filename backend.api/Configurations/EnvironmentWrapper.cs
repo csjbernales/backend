@@ -1,4 +1,4 @@
-﻿namespace backend.api
+﻿namespace backend.api.Configurations
 {
     public class EnvironmentWrapper(WebApplicationBuilder builder) : IEnvironmentWrapper
     {

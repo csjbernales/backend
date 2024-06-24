@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using backend.api.Configurations;
+using Microsoft.AspNetCore.Builder;
 
 namespace backend.api.Auth.Tests
 {
