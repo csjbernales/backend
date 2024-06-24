@@ -30,7 +30,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddDbContext<FullstackDBContext>(options => options.UseSqlServer(DbConnectionStringsBuilder.ConnectionBuilder(conn)));
 
 builder.Services.AddScoped<ICustomerService, CustomersService>();
-builder.Services.AddScoped<IProductService, ProductsService>();
 
 builder.Services.AddHealthChecks();
 

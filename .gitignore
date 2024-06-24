@@ -363,8 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /backend.api/appsettings.Development.json
-/backend.api/Data/Generated/FullstackDBContext.cs
-/backend.api/Models/Generated/Cart.cs
-/backend.api/Models/Generated/Category.cs
-/backend.api/Models/Generated/Customer.cs
-/backend.api/Models/Generated/Product.cs
+
