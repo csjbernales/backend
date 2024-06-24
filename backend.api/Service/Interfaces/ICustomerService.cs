@@ -1,4 +1,5 @@
 ﻿using backend.api.Models;
+using backend.api.Models.dto;
 using backend.api.Models.Generated;
 
 namespace backend.api.Service.Interfaces
@@ -13,8 +14,8 @@ namespace backend.api.Service.Interfaces
 
         Task<bool> EditCustomer(Customer customer);
 
-        IList<Customer> GetAllCustomers();
+        IList<CustomersDto> GetAllCustomers();
 
-        Customer? GetCustomerDetails(int id);
+        CustomersDto? GetCustomerDetails(int id);
     }
 }

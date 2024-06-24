@@ -1,4 +1,5 @@
-﻿using backend.api.Models.Generated;
+﻿using backend.api.Models.dto;
+using backend.api.Models.Generated;
 using backend.api.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,17 +16,9 @@ namespace backend.api.Controllers.Tests
         [Fact()]
         public void GetAllCustomersTest()
         {
-            Customer customerInfo = new()
-            {
-                Id = 1,
-                Firstname = "Test",
-                Middlename = "Test",
-                Lastname = "Test",
-                Age = 1,
-                Sex = "M"
-            };
+            CustomersDto customerInfo = new(1, "test", "test", "test", 1, "m", true);
 
-            IList<Customer> customers = [
+            IList<CustomersDto> customers = [
                     customerInfo
                 ];
 
@@ -38,25 +31,17 @@ namespace backend.api.Controllers.Tests
             okresult.Should().NotBeNull();
             okresult!.StatusCode.Should().Be(200);
 
-            IList<Customer>? returnedCustomers = okresult.Value as IList<Customer>;
+            IList<CustomersDto>? returnedCustomers = okresult.Value as IList<CustomersDto>;
             returnedCustomers.Should().NotBeNull();
             returnedCustomers.Should().HaveCount(1);
-            Customer returnedCustomer = returnedCustomers![0];
+            CustomersDto returnedCustomer = returnedCustomers![0];
             returnedCustomer.Should().BeEquivalentTo(customerInfo);
         }
 
         [Fact()]
         public void GetCustomerDetailsTest()
         {
-            Customer customerInfo = new()
-            {
-                Id = 1,
-                Firstname = "Test",
-                Middlename = "Test",
-                Lastname = "Test",
-                Age = 1,
-                Sex = "M"
-            };
+            CustomersDto customerInfo = new(1, "test", "test", "test", 1, "m", true);
 
             A.CallTo(() => this.customer.GetCustomerDetails(A<int>.Ignored)).Returns(customerInfo);
             CustomersController sut = new(customer);
@@ -67,7 +52,7 @@ namespace backend.api.Controllers.Tests
             okresult.Should().NotBeNull();
             okresult!.StatusCode.Should().Be(200);
 
-            Customer? returnedCustomers = okresult.Value as Customer;
+            CustomersDto? returnedCustomers = okresult.Value as CustomersDto;
             returnedCustomers.Should().NotBeNull();
             returnedCustomers.Should().BeEquivalentTo(customerInfo);
         }

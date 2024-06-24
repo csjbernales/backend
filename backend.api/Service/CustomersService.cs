@@ -1,7 +1,9 @@
 ﻿using backend.api.Data.Generated;
 using backend.api.Models;
+using backend.api.Models.dto;
 using backend.api.Models.Generated;
 using backend.api.Service.Interfaces;
+using Mapster;
 
 namespace backend.api.Service
 {
@@ -24,12 +26,12 @@ namespace backend.api.Service
             ErrorModel = new ErrorModel();
         }
 
-        public IList<Customer> GetAllCustomers()
+        public IList<CustomersDto> GetAllCustomers()
         {
-            return [.. fullstackDBContext.Customers];
+            return fullstackDBContext.Customers.ToList().Adapt<List<CustomersDto>>();
         }
 
-        public Customer? GetCustomerDetails(int id)
+        public CustomersDto? GetCustomerDetails(int id)
         {
             IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
             if (!customer.Any())
@@ -37,7 +39,7 @@ namespace backend.api.Service
                 ErrorModel.ErrorMessage = "Customer not found.";
             }
 
-            return customer.FirstOrDefault();
+            return customer.FirstOrDefault().Adapt<CustomersDto>();
         }
 
         public async Task AddCustomer(Customer customer)

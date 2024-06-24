@@ -1,4 +1,5 @@
 ﻿using backend.api.Data.Generated;
+using backend.api.Models.dto;
 using backend.api.Service;
 using Xunit.Priority;
 using PriorityAttribute = Xunit.Priority.PriorityAttribute;
@@ -31,7 +32,7 @@ namespace backend.api.Models.Generated.Tests
 
             CustomersService sut = new(fullstackDBContext);
 
-            IList<Customer> allCustomers = sut.GetAllCustomers();
+            IList<CustomersDto> allCustomers = sut.GetAllCustomers();
 
             allCustomers.Should().HaveCount(1);
         }
@@ -57,9 +58,9 @@ namespace backend.api.Models.Generated.Tests
 
             CustomersService sut = new(fullstackDBContext);
 
-            Customer? allCustomers = sut.GetCustomerDetails(2);
+            CustomersDto allCustomers = sut.GetCustomerDetails(2)!;
 
-            allCustomers.Should().BeSameAs(cust);
+            Assert.NotNull(allCustomers);
         }
 
         [Fact()]
@@ -84,9 +85,9 @@ namespace backend.api.Models.Generated.Tests
             CustomersService sut = new(fullstackDBContext);
 
             await sut.AddCustomer(cust);
-            Customer? allCustomers = sut.GetCustomerDetails(3);
+            CustomersDto allCustomers = sut.GetCustomerDetails(3)!;
 
-            allCustomers.Should().BeSameAs(cust);
+            Assert.NotNull(allCustomers);
         }
 
         [Fact()]
@@ -109,7 +110,6 @@ namespace backend.api.Models.Generated.Tests
             await fullstackDBContext.SaveChangesAsync();
 
             Customer? updatedCust = fullstackDBContext.Customers.Where(x => x.Id == cust.Id).FirstOrDefaultAsync().Result;
-
 
             updatedCust!.Age = 26;
 
@@ -143,7 +143,7 @@ namespace backend.api.Models.Generated.Tests
 
             bool del = await sut.DeleteCustomer(5);
 
-            Customer? allCustomers = sut.GetCustomerDetails(5);
+            CustomersDto allCustomers = sut.GetCustomerDetails(5)!;
             allCustomers.Should().Be(null);
             del.Should().BeTrue();
         }

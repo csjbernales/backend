@@ -1,5 +1,6 @@
 ﻿using backend.api.Controllers.Interfaces;
 using backend.api.Models;
+using backend.api.Models.dto;
 using backend.api.Models.Generated;
 using backend.api.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -26,7 +27,7 @@ namespace backend.api.Controllers
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         public IActionResult GetCustomerDetails([Required][Range(1, int.MaxValue)] int id)
         {
-            Customer? customerInfo = service.GetCustomerDetails(id);
+            CustomersDto customerInfo = service.GetCustomerDetails(id)!;
             if (customerInfo is null)
             {
                 return NotFound(service!.ErrorModel);
