@@ -13,7 +13,6 @@ namespace backend.api.Service
 
         private readonly FullstackDBContext fullstackDBContext;
 
-
         public CustomersService()
         {
             ErrorModel = new ErrorModel();

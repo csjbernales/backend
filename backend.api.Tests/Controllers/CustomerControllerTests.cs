@@ -9,6 +9,7 @@ namespace backend.api.Tests.Controllers
     public class CustomerControllerTests
     {
         private readonly ICustomerService customer;
+
         public CustomerControllerTests()
         {
             customer = A.Fake<ICustomerService>();

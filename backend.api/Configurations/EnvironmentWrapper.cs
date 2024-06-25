@@ -6,6 +6,7 @@
         {
             return builder.Environment.IsDevelopment();
         }
+
         public virtual bool IsStaging()
         {
             return builder.Environment.IsStaging();
