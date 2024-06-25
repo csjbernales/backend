@@ -6,7 +6,7 @@ namespace backend.api.Middleware
     {
         public async Task Invoke(HttpContext context)
         {
-            logger.Log(LogLevel.Information, "Request initiated: | {RequestMethod} | {RequestPath}", context.Request.Method, context.Request.Path);
+            logger.LogInformation("Request initiated: | {RequestMethod} | {RequestPath}", context.Request.Method, context.Request.Path);
             await next(context);
         }
     }

@@ -30,4 +30,4 @@ Content-Type: application/json
 
 ###
 
-DELETE https://localhost:7001/api/Customers/Delete?id=123
+DELETE https://localhost:7001/api/Customers/Delete/1

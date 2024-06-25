@@ -60,7 +60,7 @@ namespace backend.api.Controllers
             return StatusCode(406, service.ErrorModel);
         }
 
-        [HttpDelete("Delete")]
+        [HttpDelete("Delete/{id}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status205ResetContent)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> DeleteCustomer([Required][Range(1, int.MaxValue)] int id)
