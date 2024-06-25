@@ -1,6 +1,6 @@
 ﻿namespace backend.api.Configurations
 {
-    public class EnvironmentWrapper(WebApplicationBuilder builder) : IEnvironmentWrapper
+    public class EnvironmentWrapper(WebApplicationBuilder builder)
     {
         public virtual bool IsDevelopment()
         {

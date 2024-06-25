@@ -9,7 +9,7 @@ namespace backend.api.Auth
 {
     public static class AuthConfig
     {
-        public static void AuthOptions(WebApplicationBuilder builder, IEnvironmentWrapper environmentWrapper)
+        public static void AuthOptions(WebApplicationBuilder builder, EnvironmentWrapper environmentWrapper)
         {
             if (environmentWrapper.IsDevelopment())
             {

@@ -3,7 +3,7 @@
   "profiles": {
     "Backend.Api.Prod": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
+      "dotnetRunMessages": false,
       "launchBrowser": false,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7001;http://localhost:5282",

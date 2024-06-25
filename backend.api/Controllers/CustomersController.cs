@@ -1,5 +1,4 @@
-﻿using backend.api.Controllers.Interfaces;
-using backend.api.Service.Interfaces;
+﻿using backend.api.Service.Interfaces;
 using backend.data.Models;
 using backend.data.Models.Dto;
 using backend.data.Models.Generated;
@@ -13,7 +12,7 @@ namespace backend.api.Controllers
     [Authorize]
     [Produces(MediaTypeNames.Application.Json)]
     [Route("api/[controller]")]
-    public class CustomersController(ICustomerService service) : ControllerBase, ICustomerController
+    public class CustomersController(ICustomerService service) : ControllerBase
     {
         [HttpGet("GetAll")]
         [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]
