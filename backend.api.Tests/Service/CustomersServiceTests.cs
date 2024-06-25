@@ -33,7 +33,7 @@ namespace backend.api.Tests.Service
 
             CustomersService sut = new(fullstackDBContext);
 
-            IList<CustomersDto> allCustomers = sut.GetAllCustomers();
+            IReadOnlyList<CustomersDto> allCustomers = sut.GetAllCustomers();
 
             allCustomers.Should().HaveCount(1);
         }

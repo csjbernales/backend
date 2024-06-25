@@ -20,7 +20,7 @@ namespace backend.api.Tests.Controllers
         {
             CustomersDto customerInfo = new(1, "test", "test", "test", 1, "m", true);
 
-            IList<CustomersDto> customers = [
+            IReadOnlyList<CustomersDto> customers = [
                     customerInfo
                 ];
 

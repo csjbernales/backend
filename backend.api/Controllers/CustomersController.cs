@@ -15,7 +15,7 @@ namespace backend.api.Controllers
     public class CustomersController(ICustomerService service) : ControllerBase
     {
         [HttpGet("GetAll")]
-        [ProducesResponseType(typeof(IList<Customer>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IReadOnlyList<Customer>), StatusCodes.Status200OK)]
         public IActionResult GetAllCustomers()
         {
             return Ok(service.GetAllCustomers());

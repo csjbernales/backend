@@ -25,9 +25,9 @@ namespace backend.api.Service
             ErrorModel = new ErrorModel();
         }
 
-        public IList<CustomersDto> GetAllCustomers()
+        public IReadOnlyList<CustomersDto> GetAllCustomers()
         {
-            return fullstackDBContext.Customers.ToList().Adapt<List<CustomersDto>>();
+            return fullstackDBContext.Customers.ToList().Adapt<IReadOnlyList<CustomersDto>>();
         }
 
         public CustomersDto? GetCustomerDetails(int id)

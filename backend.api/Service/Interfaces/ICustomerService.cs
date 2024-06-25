@@ -14,7 +14,7 @@ namespace backend.api.Service.Interfaces
 
         Task<bool> EditCustomer(Customer customer);
 
-        IList<CustomersDto> GetAllCustomers();
+        IReadOnlyList<CustomersDto> GetAllCustomers();
 
         CustomersDto? GetCustomerDetails(int id);
     }
