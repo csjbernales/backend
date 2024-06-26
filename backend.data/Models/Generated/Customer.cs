@@ -1,15 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.data.Models.Generated;
 
-[Table("Customer")]
 public partial class Customer
 {
-    [Key]
-    public int Id { get; set; }
-
     [StringLength(50)]
     [Unicode(false)]
     public string Firstname { get; set; } = null!;
@@ -29,4 +27,7 @@ public partial class Customer
     public string Sex { get; set; } = null!;
 
     public bool IsEmployed { get; set; }
+
+    [Key]
+    public Guid Id { get; set; }
 }

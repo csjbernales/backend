@@ -18,7 +18,7 @@ namespace backend.api.Tests.Customers
         [Fact()]
         public void GetAllCustomersTest()
         {
-            CustomersDto customerInfo = new(1, "test", "test", "test", 1, "m", true);
+            CustomersDto customerInfo = new(Guid.NewGuid(), "test", "test", "test", 1, "m", true);
 
             IReadOnlyList<CustomersDto> customers = [
                     customerInfo
@@ -43,11 +43,12 @@ namespace backend.api.Tests.Customers
         [Fact()]
         public void GetCustomerDetailsTest()
         {
-            CustomersDto customerInfo = new(1, "test", "test", "test", 1, "m", true);
+            Guid guid = Guid.NewGuid();
+            CustomersDto customerInfo = new(guid, "test", "test", "test", 1, "m", true);
 
-            A.CallTo(() => customer.GetCustomerDetails(A<int>.Ignored)).Returns(customerInfo);
+            A.CallTo(() => customer.GetCustomerDetails(A<Guid>.Ignored)).Returns(customerInfo);
             CustomersController sut = new(customer);
-            IActionResult res = sut.GetCustomerDetails(1);
+            IActionResult res = sut.GetCustomerDetails(guid);
 
             OkObjectResult? okresult = res as OkObjectResult;
 
@@ -64,7 +65,7 @@ namespace backend.api.Tests.Customers
         {
             Customer customerInfo = new()
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Firstname = "Test",
                 Middlename = "Test",
                 Lastname = "Test",
@@ -84,7 +85,7 @@ namespace backend.api.Tests.Customers
         {
             Customer customerInfo = new()
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Firstname = "Test",
                 Middlename = "Test",
                 Lastname = "Test",
@@ -105,9 +106,9 @@ namespace backend.api.Tests.Customers
         [Fact()]
         public async Task DeleteCustomerTest()
         {
-            A.CallTo(() => customer.DeleteCustomer(A<int>.Ignored)).Returns(true);
+            A.CallTo(() => customer.DeleteCustomer(A<Guid>.Ignored)).Returns(true);
             CustomersController sut = new(customer);
-            IActionResult res = await sut.DeleteCustomer(1);
+            IActionResult res = await sut.DeleteCustomer(Guid.NewGuid());
 
             ObjectResult statusCodeResult = Assert.IsType<ObjectResult>(res);
             Assert.Equal(205, statusCodeResult.StatusCode);

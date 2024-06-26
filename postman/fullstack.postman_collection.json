@@ -51,7 +51,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/customers/Get/1",
+							"raw": "{{baseUrl}}/api/customers/Get/d0f01688-c26a-4aff-a0a1-43bcd88e637a",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -59,7 +59,7 @@
 								"api",
 								"customers",
 								"Get",
-								"1"
+								"d0f01688-c26a-4aff-a0a1-43bcd88e637a"
 							]
 						}
 					},
@@ -72,7 +72,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Id\": 1,\r\n    \"Firstname\": \"Verna\",\r\n    \"Middlename\": \"Dorias\",\r\n    \"Lastname\": \"Bernales\",\r\n    \"Age\": 25,\r\n    \"Sex\": \"F\",\r\n    \"IsEmployed\": true\r\n}",
+							"raw": "{\r\n    \"Firstname\": \"Verna\",\r\n    \"Middlename\": \"Dorias\",\r\n    \"Lastname\": \"Bernales\",\r\n    \"Age\": 25,\r\n    \"Sex\": \"F\",\r\n    \"IsEmployed\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -100,7 +100,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Id\": 1,\r\n    \"Firstname\": \"Verna\",\r\n    \"Middlename\": \"Dorias\",\r\n    \"Lastname\": \"Bernales\",\r\n    \"Age\": 25,\r\n    \"Sex\": \"F\",\r\n    \"IsEmployed\": true\r\n}",
+							"raw": "{\r\n    \"Id\": \"d0f01688-c26a-4aff-a0a1-43bcd88e637a\",\r\n    \"Firstname\": \"Verna\",\r\n    \"Middlename\": \"Dorias\",\r\n    \"Lastname\": \"Bernales\",\r\n    \"Age\": 25,\r\n    \"Sex\": \"F\",\r\n    \"IsEmployed\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -127,7 +127,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/customers/Delete/1",
+							"raw": "{{baseUrl}}/api/customers/Delete/d0f01688-c26a-4aff-a0a1-43bcd88e637a",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -135,7 +135,7 @@
 								"api",
 								"customers",
 								"Delete",
-								"1"
+								"d0f01688-c26a-4aff-a0a1-43bcd88e637a"
 							]
 						}
 					},

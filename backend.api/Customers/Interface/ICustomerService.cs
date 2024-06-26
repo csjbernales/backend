@@ -10,12 +10,12 @@ namespace backend.api.Customers.Interface
 
         Task AddCustomer(Customer customer);
 
-        Task<bool> DeleteCustomer(int id);
+        Task<bool> DeleteCustomer(Guid id);
 
         Task<bool> EditCustomer(Customer customer);
 
         IReadOnlyList<CustomersDto> GetAllCustomers();
 
-        CustomersDto? GetCustomerDetails(int id);
+        CustomersDto? GetCustomerDetails(Guid id);
     }
 }

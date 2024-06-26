@@ -24,7 +24,7 @@ namespace backend.api.Customers
         [HttpGet("Get/{id}")]
         [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
-        public IActionResult GetCustomerDetails([Required][Range(1, int.MaxValue)] int id)
+        public IActionResult GetCustomerDetails([Required] Guid id)
         {
             CustomersDto customerInfo = service.GetCustomerDetails(id)!;
             if (customerInfo is null)
@@ -62,7 +62,7 @@ namespace backend.api.Customers
         [HttpDelete("Delete/{id}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status205ResetContent)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> DeleteCustomer([Required][Range(1, int.MaxValue)] int id)
+        public async Task<IActionResult> DeleteCustomer([Required] Guid id)
         {
             bool result = await service.DeleteCustomer(id);
             if (result)

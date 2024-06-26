@@ -21,7 +21,7 @@ namespace backend.api.Tests.Customers
             fullstackDBContext.Customers.Add(
                 new Customer
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     Firstname = "Verna",
                     Middlename = "Dorias",
                     Lastname = "Bernales",
@@ -42,11 +42,12 @@ namespace backend.api.Tests.Customers
         [Priority(2)]
         public void B_GetCustomerDetailsTest()
         {
+            Guid guid = Guid.NewGuid();
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Customer cust = new()
             {
-                Id = 2,
+                Id = guid,
                 Firstname = "Verna",
                 Middlename = "Dorias",
                 Lastname = "Bernales",
@@ -59,7 +60,7 @@ namespace backend.api.Tests.Customers
 
             CustomersService sut = new(fullstackDBContext);
 
-            CustomersDto allCustomers = sut.GetCustomerDetails(2)!;
+            CustomersDto allCustomers = sut.GetCustomerDetails(guid)!;
 
             Assert.NotNull(allCustomers);
         }
@@ -68,11 +69,12 @@ namespace backend.api.Tests.Customers
         [Priority(3)]
         public async Task C_AddCustomerTest()
         {
+            Guid guid = Guid.NewGuid();
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Customer cust = new()
             {
-                Id = 3,
+                Id = guid,
                 Firstname = "Verna",
                 Middlename = "Dorias",
                 Lastname = "Bernales",
@@ -86,7 +88,7 @@ namespace backend.api.Tests.Customers
             CustomersService sut = new(fullstackDBContext);
 
             await sut.AddCustomer(cust);
-            CustomersDto allCustomers = sut.GetCustomerDetails(3)!;
+            CustomersDto allCustomers = sut.GetCustomerDetails(guid)!;
 
             Assert.NotNull(allCustomers);
         }
@@ -95,11 +97,12 @@ namespace backend.api.Tests.Customers
         [Priority(4)]
         public async Task D_EditCustomerTest()
         {
+            Guid guid = Guid.NewGuid();
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Customer cust = new()
             {
-                Id = 4,
+                Id = guid,
                 Firstname = "Verna",
                 Middlename = "Dorias",
                 Lastname = "Bernales",
@@ -125,11 +128,12 @@ namespace backend.api.Tests.Customers
         [Priority(5)]
         public async Task E_DeleteCustomerTest()
         {
+            Guid guid = Guid.NewGuid();
             dbContextOptions = new DbContextOptionsBuilder<FullstackDBContext>().UseInMemoryDatabase(databaseName: "TestDatabase").Options;
             using FullstackDBContext fullstackDBContext = new(dbContextOptions);
             Customer cust = new()
             {
-                Id = 5,
+                Id = guid,
                 Firstname = "Verna",
                 Middlename = "Dorias",
                 Lastname = "Bernales",
@@ -142,9 +146,9 @@ namespace backend.api.Tests.Customers
 
             CustomersService sut = new(fullstackDBContext);
 
-            bool del = await sut.DeleteCustomer(5);
+            bool del = await sut.DeleteCustomer(guid);
 
-            CustomersDto allCustomers = sut.GetCustomerDetails(5)!;
+            CustomersDto allCustomers = sut.GetCustomerDetails(guid)!;
             allCustomers.Should().Be(null);
             del.Should().BeTrue();
         }

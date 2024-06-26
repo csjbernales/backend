@@ -1,5 +1,7 @@
-﻿using backend.data.Models.Generated;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using backend.data.Models.Generated;
 
 namespace backend.data.Data.Generated;
 
@@ -16,8 +18,7 @@ public partial class FullstackDBContext : DbContext
     {
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_Person");
-
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Sex).IsFixedLength();
         });
 

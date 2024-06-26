@@ -30,7 +30,7 @@ namespace backend.api.Customers
             return fullstackDBContext.Customers.ToList().Adapt<IReadOnlyList<CustomersDto>>();
         }
 
-        public CustomersDto? GetCustomerDetails(int id)
+        public CustomersDto? GetCustomerDetails(Guid id)
         {
             IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
             if (!customer.Any())
@@ -43,7 +43,7 @@ namespace backend.api.Customers
 
         public async Task AddCustomer(Customer customer)
         {
-            if (customer.Id == 0)
+            if (customer.Id == Guid.Empty)
             {
                 await fullstackDBContext.Customers.AddAsync(customer);
                 await fullstackDBContext.SaveChangesAsync();
@@ -66,7 +66,7 @@ namespace backend.api.Customers
             return result > 0;
         }
 
-        public async Task<bool> DeleteCustomer(int id)
+        public async Task<bool> DeleteCustomer(Guid id)
         {
             int result = 0;
             IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
