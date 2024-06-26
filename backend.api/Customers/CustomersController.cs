@@ -1,4 +1,4 @@
-﻿using backend.api.Service.Interfaces;
+﻿using backend.api.Customers.Interface;
 using backend.data.Models;
 using backend.data.Models.Dto;
 using backend.data.Models.Generated;
@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
 
-namespace backend.api.Controllers
+namespace backend.api.Customers
 {
     [Authorize]
     [Produces(MediaTypeNames.Application.Json)]

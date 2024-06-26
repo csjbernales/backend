@@ -1,11 +1,11 @@
-﻿using backend.api.Service.Interfaces;
+﻿using backend.api.Customers.Interface;
 using backend.data.Data.Generated;
 using backend.data.Models;
 using backend.data.Models.Dto;
 using backend.data.Models.Generated;
 using Mapster;
 
-namespace backend.api.Service
+namespace backend.api.Customers
 {
     public class CustomersService : ICustomerService
     {

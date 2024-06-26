@@ -2,7 +2,7 @@
 using backend.data.Models.Dto;
 using backend.data.Models.Generated;
 
-namespace backend.api.Service.Interfaces
+namespace backend.api.Customers.Interface
 {
     public interface ICustomerService
     {

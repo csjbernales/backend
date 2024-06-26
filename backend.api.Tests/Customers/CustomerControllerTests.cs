@@ -1,10 +1,10 @@
-﻿using backend.api.Controllers;
-using backend.api.Service.Interfaces;
+﻿using backend.api.Customers;
+using backend.api.Customers.Interface;
 using backend.data.Models.Dto;
 using backend.data.Models.Generated;
 using Microsoft.AspNetCore.Mvc;
 
-namespace backend.api.Tests.Controllers
+namespace backend.api.Tests.Customers
 {
     public class CustomerControllerTests
     {

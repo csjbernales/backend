@@ -1,5 +1,4 @@
-﻿using backend.api.Configurations;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
@@ -9,9 +8,9 @@ namespace backend.api.Auth
 {
     public static class AuthConfig
     {
-        public static void AuthOptions(WebApplicationBuilder builder, EnvironmentWrapper environmentWrapper)
+        public static void AuthOptions(WebApplicationBuilder builder)
         {
-            if (environmentWrapper.IsDevelopment())
+            if (builder.Environment.IsDevelopment())
             {
                 builder.Services.AddAuthentication("Development").AddScheme<AuthenticationSchemeOptions, DevelopmentAuthenticationHandler>("Development", options => { });
             }

@@ -1,12 +1,12 @@
 using backend.api.Auth;
-using backend.api.Configurations;
+using backend.api.Customers;
+using backend.api.Customers.Interface;
 using backend.api.Middleware;
-using backend.api.Service;
-using backend.api.Service.Interfaces;
 using backend.data.Data;
 using backend.data.Data.Generated;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using Serilog.Events;
 using System.Diagnostics.CodeAnalysis;
@@ -27,8 +27,6 @@ try
     WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddSerilog((services, lc) => lc.ReadFrom.Configuration(builder.Configuration.GetSection("Serilog")).ReadFrom.Services(services).Enrich.FromLogContext().WriteTo.Console());
-
-    EnvironmentWrapper environmentWrapper = new(builder);
 
     //Add services to the container.
 
@@ -51,9 +49,59 @@ try
 
     builder.Services.AddEndpointsApiExplorer();
 
-    builder.Services.AddSwaggerGen(Swagger.SwaggerOptions(builder, environmentWrapper));
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1",
+        new OpenApiInfo
+        {
+            Title = "Backend API - V1",
+            Version = "v1",
+            Description = "A simple API for fullstack .net app",
+            TermsOfService = new Uri(builder.Configuration["SwaggerDoc:TosUrl"]!),
+            Contact = new OpenApiContact
+            {
+                Name = "Jhon B",
+                Email = builder.Configuration["email"]
+            },
+            License = new OpenApiLicense
+            {
+                Name = "Apache 2.0",
+                Url = new Uri(builder.Configuration["SwaggerDoc:LicenseUrl"]!)
+            }
+        });
 
-    AuthConfig.AuthOptions(builder, environmentWrapper);
+        if (!builder.Environment.IsDevelopment())
+        {
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            {
+                Description = "JWT Authorization header using the Bearer scheme.",
+                Name = "Authorization",
+                In = ParameterLocation.Header,
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer"
+            });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    },
+                    Scheme = "oauth2",
+                    Name = "Bearer",
+                    In = ParameterLocation.Header
+                },
+                new List<string>()
+            }
+        });
+        }
+    });
+
+    AuthConfig.AuthOptions(builder);
 
     //--------------------------------------------------------------------------------------------------
 

@@ -1,11 +1,11 @@
-﻿using backend.api.Service;
+﻿using backend.api.Customers;
 using backend.data.Data.Generated;
 using backend.data.Models.Dto;
 using backend.data.Models.Generated;
 using Xunit.Priority;
 using PriorityAttribute = Xunit.Priority.PriorityAttribute;
 
-namespace backend.api.Tests.Service
+namespace backend.api.Tests.Customers
 {
     [TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
     public class CustomersServiceTests
