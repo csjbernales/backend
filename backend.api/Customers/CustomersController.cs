@@ -24,7 +24,7 @@ namespace backend.api.Customers
         [HttpGet("Get/{id}")]
         [ProducesResponseType(typeof(Customer), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
-        public IActionResult GetCustomerDetails([Required] Guid id)
+        public IActionResult GetCustomerDetails([Required] List<Guid> id)
         {
             CustomersDto customerInfo = service.GetCustomerDetails(id)!;
             if (customerInfo is null)
@@ -38,7 +38,7 @@ namespace backend.api.Customers
         [HttpPut("Add")]
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> AddCustomer([Required][FromBody] Customer customer)
+        public async Task<IActionResult> AddCustomer([Required][FromBody] List<Customer> customer)
         {
             await service.AddCustomer(customer);
             return Created();
@@ -48,7 +48,7 @@ namespace backend.api.Customers
         [Consumes("application/json")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status406NotAcceptable)]
-        public async Task<IActionResult> EditCustomer([Required][FromBody] Customer customer)
+        public async Task<IActionResult> EditCustomer([Required][FromBody] List<Customer> customer)
         {
             bool result = await service.EditCustomer(customer);
             if (result)
@@ -62,7 +62,7 @@ namespace backend.api.Customers
         [HttpDelete("Delete/{id}")]
         [ProducesResponseType(typeof(bool), StatusCodes.Status205ResetContent)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> DeleteCustomer([Required] Guid id)
+        public async Task<IActionResult> DeleteCustomer([Required] List<Guid> id)
         {
             bool result = await service.DeleteCustomer(id);
             if (result)

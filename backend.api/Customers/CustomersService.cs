@@ -9,20 +9,14 @@ namespace backend.api.Customers
 {
     public class CustomersService : ICustomerService
     {
-        public ErrorModel ErrorModel { get; set; }
+        public List<ErrorModel> ErrorModel { get; set; }
 
         private readonly FullstackDBContext fullstackDBContext;
-
-        public CustomersService()
-        {
-            ErrorModel = new ErrorModel();
-            fullstackDBContext ??= new FullstackDBContext();
-        }
 
         public CustomersService(FullstackDBContext fullstackDBContext)
         {
             this.fullstackDBContext = fullstackDBContext;
-            ErrorModel = new ErrorModel();
+            ErrorModel = [];
         }
 
         public IReadOnlyList<CustomersDto> GetAllCustomers()
@@ -30,58 +24,85 @@ namespace backend.api.Customers
             return fullstackDBContext.Customers.ToList().Adapt<IReadOnlyList<CustomersDto>>();
         }
 
-        public CustomersDto? GetCustomerDetails(Guid id)
+        public List<CustomersDto> GetCustomerDetails(List<Guid> ids)
         {
-            IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
-            if (!customer.Any())
+            List<CustomersDto> customers = [];
+            ids.ForEach(y =>
             {
-                ErrorModel.ErrorMessage = "Customer not found.";
-            }
+                CustomersDto single = fullstackDBContext.Customers.Where(x => x.Id == y).SingleOrDefault().Adapt<CustomersDto>();
 
-            return customer.FirstOrDefault().Adapt<CustomersDto>();
+                if (single.Id == Guid.Empty)
+                {
+                    customers.Add(single);
+                }
+                else
+                {
+                    ErrorModel.Add(new ErrorModel()
+                    {
+                        ErrorMessage = $"Customer with ID {y} not found."
+                    });
+                }
+            });
+
+            return customers;
         }
 
-        public async Task AddCustomer(Customer customer)
+        public async Task AddCustomer(List<Customer> customer)
         {
-            if (customer.Id == Guid.Empty)
+            foreach (Customer item in customer)
             {
-                await fullstackDBContext.Customers.AddAsync(customer);
-                await fullstackDBContext.SaveChangesAsync();
-            }
-            else
-            {
-                ErrorModel.ErrorMessage = $"Payload should not contain 'id' property.";
+                if (item.Id == Guid.Empty)
+                {
+                    await fullstackDBContext.Customers.AddAsync(item);
+                    await fullstackDBContext.SaveChangesAsync();
+                }
+                else
+                {
+                    ErrorModel.Add(new ErrorModel()
+                    {
+                        ErrorMessage = $"Error has occured for id {item.Id}"
+                    });
+                }
             }
         }
 
-        public async Task<bool> EditCustomer(Customer customer)
+        public async Task EditCustomer(List<Customer> customer)
         {
-            fullstackDBContext.Customers.Update(customer);
-            int result = await fullstackDBContext.SaveChangesAsync();
-            if (result != 0)
+            foreach (Customer item in customer)
             {
-                ErrorModel.ErrorMessage = $"Customer not found.";
+                int result = 0;
+                fullstackDBContext.Customers.Update(item);
+                result += await fullstackDBContext.SaveChangesAsync();
+                if (result != 0)
+                {
+                    ErrorModel.Add(new ErrorModel()
+                    {
+                        ErrorMessage = $"Customer {item.Id} not found."
+                    });
+                }
             }
-
-            return result > 0;
         }
 
-        public async Task<bool> DeleteCustomer(Guid id)
+        public async Task DeleteCustomer(List<Guid> id)
         {
-            int result = 0;
-            IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == id);
-
-            if (customer.Any())
+            foreach (Guid item in id)
             {
-                fullstackDBContext.Customers.Remove(customer.FirstOrDefault()!);
-                result = await fullstackDBContext.SaveChangesAsync();
-            }
-            else
-            {
-                ErrorModel.ErrorMessage = $"Failed to delete customer with ID '{id}'. ID may not exist.";
-            }
+                int result = 0;
+                IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == item);
 
-            return result > 0;
+                if (customer.Any())
+                {
+                    fullstackDBContext.Customers.Remove(customer.FirstOrDefault()!);
+                    result = await fullstackDBContext.SaveChangesAsync();
+                }
+                else
+                {
+                    ErrorModel.Add(new ErrorModel()
+                    {
+                        ErrorMessage = $"Failed to delete customer with ID '{item}'. ID may not exist."
+                    });
+                }
+            }
         }
     }
 }
