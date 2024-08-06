@@ -4,6 +4,7 @@ using backend.data.Models.Dto;
 using backend.data.Models.Generated;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
 
@@ -51,11 +52,10 @@ namespace backend.api.Customers
         public async Task<IActionResult> EditCustomer([Required][FromBody] List<Customer> customer)
         {
             await service.EditCustomer(customer);
-            if (result)
+            if (service.ErrorModel.IsNullOrEmpty())
             {
                 return NoContent();
             }
-
             return StatusCode(406, service.ErrorModel);
         }
 
@@ -64,12 +64,10 @@ namespace backend.api.Customers
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status409Conflict)]
         public async Task<IActionResult> DeleteCustomer([Required] List<Guid> id)
         {
-            bool result = await service.DeleteCustomer(id);
-            if (result)
+            if (service.ErrorModel.IsNullOrEmpty())
             {
-                return StatusCode(205, result);
+                return StatusCode(205);
             }
-
             return StatusCode(409, service.ErrorModel);
         }
     }
