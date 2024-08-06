@@ -6,16 +6,12 @@ namespace backend.api.Customers.Interface
 {
     public interface ICustomerService
     {
-        ErrorModel ErrorModel { get; set; }
+        List<ErrorModel> ErrorModel { get; set; }
 
-        Task AddCustomer(Customer customer);
-
-        Task<bool> DeleteCustomer(Guid id);
-
-        Task<bool> EditCustomer(Customer customer);
-
+        Task AddCustomer(List<Customer> customer);
+        Task DeleteCustomer(List<Guid> id);
+        Task EditCustomer(List<Customer> customer);
         IReadOnlyList<CustomersDto> GetAllCustomers();
-
-        CustomersDto? GetCustomerDetails(Guid id);
+        List<CustomersDto> GetCustomerDetails(List<Guid> ids);
     }
 }

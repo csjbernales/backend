@@ -87,13 +87,12 @@ namespace backend.api.Customers
         {
             foreach (Guid item in id)
             {
-                int result = 0;
                 IQueryable<Customer> customer = fullstackDBContext.Customers.Where(x => x.Id == item);
 
                 if (customer.Any())
                 {
                     fullstackDBContext.Customers.Remove(customer.FirstOrDefault()!);
-                    result = await fullstackDBContext.SaveChangesAsync();
+                    await fullstackDBContext.SaveChangesAsync();
                 }
                 else
                 {

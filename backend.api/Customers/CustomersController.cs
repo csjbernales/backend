@@ -26,7 +26,7 @@ namespace backend.api.Customers
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         public IActionResult GetCustomerDetails([Required] List<Guid> id)
         {
-            CustomersDto customerInfo = service.GetCustomerDetails(id)!;
+            List<CustomersDto>? customerInfo = service.GetCustomerDetails(id)!;
             if (customerInfo is null)
             {
                 return NotFound(service!.ErrorModel);
@@ -50,7 +50,7 @@ namespace backend.api.Customers
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status406NotAcceptable)]
         public async Task<IActionResult> EditCustomer([Required][FromBody] List<Customer> customer)
         {
-            bool result = await service.EditCustomer(customer);
+            await service.EditCustomer(customer);
             if (result)
             {
                 return NoContent();
