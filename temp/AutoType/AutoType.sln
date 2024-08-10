@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35004.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyType", "MonkeyType\MonkeyType.csproj", "{C1A03788-E949-40C3-8B9D-98C293A9C81E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyTypeTest", "MonkeyTypeTest\MonkeyTypeTest.csproj", "{67E0316E-D133-4760-9EFB-21AFCFB43DC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1A03788-E949-40C3-8B9D-98C293A9C81E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1A03788-E949-40C3-8B9D-98C293A9C81E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1A03788-E949-40C3-8B9D-98C293A9C81E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1A03788-E949-40C3-8B9D-98C293A9C81E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E0316E-D133-4760-9EFB-21AFCFB43DC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E0316E-D133-4760-9EFB-21AFCFB43DC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E0316E-D133-4760-9EFB-21AFCFB43DC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E0316E-D133-4760-9EFB-21AFCFB43DC8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D809CF96-74ED-4009-92C4-39EB86A5C599}
+	EndGlobalSection
+EndGlobal

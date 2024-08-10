@@ -44,9 +44,11 @@ namespace backend.api.Tests.Customers
         public void GetCustomerDetailsTest()
         {
             Guid guid = Guid.NewGuid();
-            CustomersDto customerInfo = new(guid, "test", "test", "test", 1, "m", true);
+            var customer = new(guid, "test", "test", "test", 1, "m", true);
+            List<CustomersDto> customersDtos = new List<CustomersDto>();
+            customersDtos.Add(customer);
 
-            A.CallTo(() => customer.GetCustomerDetails(A<Guid>.Ignored)).Returns(customerInfo);
+            A.CallTo(() => customer.GetCustomerDetails(A<List<Guid>>.Ignored)).Returns(customerInfo);
             CustomersController sut = new(customer);
             IActionResult res = sut.GetCustomerDetails(guid);
 

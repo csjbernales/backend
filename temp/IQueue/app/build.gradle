@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId 'com.sterben.iqueue'
+        minSdkVersion 19
+        targetSdkVersion 27
+        versionCode 1
+        versionName '1.0'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    implementation 'com.android.support:support-vector-drawable:27.1.1'
+    implementation 'com.google.firebase:firebase-database:12.0.1'
+    implementation 'com.google.firebase:firebase-storage:12.0.1'
+    implementation 'com.google.firebase:firebase-auth:12.0.1'
+
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
+    implementation 'com.nispok:snackbar:2.11.0'
+    implementation 'com.ikimuhendis:ldrawer:0.1'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    implementation 'com.android.volley:volley:1.0.0'
+    implementation 'com.muddzdev:styleabletoast:1.0.9'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.sdsmdg.harjot:rotatingtext:1.0.2'
+    implementation 'com.github.ceryle:FitGridView:v1.0.5'
+    implementation 'com.squareup.retrofit:retrofit:1.9.0'
+    implementation 'me.drakeet.materialdialog:library:1.3.1'
+    implementation 'com.yayandroid:ParallaxRecyclerView:1.1'
+    implementation 'com.google.firebase:firebase-core:12.0.1'
+    implementation 'jp.wasabeef:recyclerview-animators:2.2.7'
+    implementation 'com.github.f0ris.sweetalert:library:1.5.2'
+    // this line must be included to integrate with Firebase
+    implementation 'com.google.firebase:firebase-messaging:12.0.1'
+    implementation 'com.github.florent37:materialtextfield:1.0.7'
+    implementation 'com.google.android.gms:play-services-places:12.0.1'
+    implementation 'com.google.android.gms:play-services-location:12.0.1'
+    implementation 'com.weiwangcn.betterspinner:library-material:1.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
+
+
+    implementation 'com.wrapp.floatlabelededittext:library:0.0.6'
+}
+apply plugin: 'com.google.gms.google-services'
+
+repositories {
+    mavenCentral()
+}

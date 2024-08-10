@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.FEUTech.sterben.iqueue.Queue_CCS">
+
+
+    <TextView
+        android:id="@+id/ccs_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/ccs_transaction"
+        android:textAlignment="center"
+        android:textColor="@color/black_de"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/profspinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:spinnerMode="dialog"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_section_add" />
+
+
+    <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+        android:id="@+id/spinner_choose_Transaction_CCS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:hint="@string/typeOfTransaction"
+        android:textAlignment="center"
+        android:textSize="17sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ccs_transaction"
+        app:met_floatingLabel="normal" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_course_drop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_choose_Transaction_CCS">
+
+        <EditText
+            android:id="@+id/course_drop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course to drop"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColorHint="@color/gray_btn_bg_pressed_color"
+            android:visibility="gone" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_section_drop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_course_drop">
+
+        <EditText
+            android:id="@+id/section_drop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Section of course to drop"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColorHint="@color/gray_btn_bg_pressed_color"
+            android:visibility="gone" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_course_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_section_drop">
+
+        <EditText
+            android:id="@+id/course_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Course to add"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColorHint="@color/gray_btn_bg_pressed_color"
+            android:visibility="gone" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout_section_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout_course_add">
+
+        <EditText
+            android:id="@+id/section_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Section of course to add"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColorHint="@color/gray_btn_bg_pressed_color"
+            android:visibility="gone" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/add_queue_to_CCS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/addQueue"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</android.support.constraint.ConstraintLayout>

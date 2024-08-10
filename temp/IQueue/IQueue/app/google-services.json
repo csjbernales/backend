@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "991703131503",
+    "firebase_url": "https://queue-7c955.firebaseio.com",
+    "project_id": "queue-7c955",
+    "storage_bucket": "queue-7c955.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991703131503:android:9185ed20d736da6c",
+        "android_client_info": {
+          "package_name": "com.sterben.iqueue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "991703131503-1689qee32cce0kbtq108v0fedsvatkf7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sterben.iqueue",
+            "certificate_hash": "3979ca7cea8a2a0a60b3b031828d0caf7a9d04ac"
+          }
+        },
+        {
+          "client_id": "991703131503-qv7lp3o8lmvifc6j5375btm34rmsp4t2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sterben.iqueue",
+            "certificate_hash": "d644e86c28b446b66e740e021dad5d508097b101"
+          }
+        },
+        {
+          "client_id": "991703131503-sm02q207n5jqdpa473qh60edrci6htcl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHJGP_GBFzr15CaFguGgMtoTAIlZuaGNo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "991703131503-sm02q207n5jqdpa473qh60edrci6htcl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

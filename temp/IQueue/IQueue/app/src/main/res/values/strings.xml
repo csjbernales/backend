@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">IQueue</string>
+
+    <string-array name="name_list">
+        <item>Cashier Office</item>
+        <item>Registrar Office</item>
+        <item>ITE Department</item>
+    </string-array>
+
+    <string name="feu">FEU Institute of Technology</string>
+
+    <string name="title_accounting">Accounting Office</string>
+    <string name="title_ccs">CCS Office</string>
+    <string name="title_cashier">Cashier Office</string>
+    <string name="title_registrar">Registrar Office</string>
+    <string name="typeOfTransaction">Type Of Transaction</string>
+
+    <string name="title_activity_final_iqueue_home">Home</string>
+    <string name="title_activity_final_iqueue_add_queue">Add Queue</string>
+    <string name="title_activity_final_iqueue_my_queue">My Queue</string>
+
+    <string name="home">Home</string>
+    <string name="addQueue">Add Queue</string>
+    <string name="myQueue">My Queue</string>
+
+    <string name="promissory_note">Promissory Note</string>
+    <string name="uniform">Uniform</string>
+    <string name="others">Others</string>
+    <string name="queue_add">Add Queue</string>
+    <string name="specify">Please Specify</string>
+    <string name="slip_payment">Payment Slip</string>
+    <string name="check_number">Check Number</string>
+
+    <string name="amount">Amount</string>
+    <string name="branch">Branch</string>
+    <string name="login">Login</string>
+    <string name="studentID">Student ID</string>
+    <string name="empty_queue">Empty Queue</string>
+    <string name="current_queue">Serving</string>
+    <string name="contact_num">P. Paredes Street, Sampaloc, Manila
+        \nContact Numbers
+        \nTrunkline: (02) 2818888
+        \nTelefax: (02) 8353312
+        \nEmail Addresses: info@fit.edu.ph</string>
+    <string name="aboutfeu">FEU Institute of Technology\n(formerly FEU – East Asia College)
+        is a vibrant community of technology scholars and \nprofessionals seeking to serve the
+        Nation, \nthe Industry, and the World.</string>
+    <string name="my_queue">You</string>
+    <string name="next">Next</string>
+    <string name="schoolyear">School Year</string>
+    <string name="credit">© FEU INSTITUTE OF TECHNOLOGY</string>
+    <string name="transaction_for">Transaction for:</string>
+
+    <string name="first">1st</string>
+    <string name="second">2nd</string>
+    <string name="third">3rd</string>
+    <string name="fourth">4th</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="tab1">Profile</string>
+    <string name="tab2">Contact</string>
+    <string name="tab3">About</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="courseyearonprofile">Course \nYear Level</string>
+
+
+    <string name="queuelist_about">Please select an office \nto proceed</string>
+    <string name="cancel_queue">Cancel Queue</string>
+    <string name="down_payment">Down Payment</string>
+    <string name="balance">Balance</string>
+    <string name="term">Term</string>
+    <string name="add_another_transaction">Add Another Transaction</string>
+    <string name="proceed_to_cashier">Please proceed at the cashier</string>
+    <string name="youhave_emptyqueue">You have no queues</string>
+    <string name="clarky">201510140</string>
+    <string name="canvas_click_here">Open in web browser? Click here</string>
+    <string name="ccs_transaction">CCS Transaction</string>
+</resources>
